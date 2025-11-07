@@ -41,12 +41,50 @@ public class Salad implements OrderItem{
     }
 
     public double calculatePrice(){
-    return 0;
-    }
+            double price = 0;
+
+            // Base price by size
+            switch (size) {
+                case SMALL -> price += 8;
+                case MEDIUM -> price += 10;
+                case LARGE -> price += 12;
+            }
+
+            // Add toppings
+            for (Topping topping : toppings) {
+                if (topping instanceof MeatTopping) {
+                    price += switch (size) {
+                        case SMALL -> 2;
+                        case MEDIUM -> 3;
+                        case LARGE -> 4;
+                    };
+                } else if (topping instanceof PremiumTopping) {
+                    price += switch (size) {
+                        case SMALL -> 1.5;
+                        case MEDIUM -> 2;
+                        case LARGE -> 2.5;
+                    };
+                } else if (topping instanceof RegularTopping) {
+                    price += switch (size) {
+                        case SMALL -> 1;
+                        case MEDIUM -> 1.5;
+                        case LARGE -> 2;
+                    };
+                } else if (topping instanceof QuinoaTopping) {
+                    price += switch (size) {
+                        case SMALL -> 1;
+                        case MEDIUM -> 1.5;
+                        case LARGE -> 2;
+                    };
+                }
+            }
+
+            return price;
+        }
 
     @Override
     public double getCost() {
-        return 0;
+        return calculatePrice();
     }
 
     public void addTopping(Topping topping){

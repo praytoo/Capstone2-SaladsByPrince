@@ -1,11 +1,23 @@
 package com.pluralsight;
 
-public class Side implements OrderItem {
-    private String name;
-    private double Price;
+import static com.pluralsight.Size.*;
 
-    public String getName() {
-        return name;
+public class Side implements OrderItem {
+    private String side;
+    private double Price;
+    private Size size;
+
+    public Side(String side, Size size) {
+        this.side = side;
+        this.size = size;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public String getSide() {
+        return side;
     }
 
     public double getPrice() {
@@ -14,6 +26,11 @@ public class Side implements OrderItem {
 
     @Override
     public double getCost() {
-        return 0;
+        return switch(size) {
+            case SMALL -> 3.0;
+            case MEDIUM -> 4.5;
+            case LARGE -> 6.0;
+            default -> throw new IllegalStateException("Unexpected value: " + size);
+        };
     }
 }

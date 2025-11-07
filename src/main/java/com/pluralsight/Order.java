@@ -12,14 +12,14 @@ public class Order {
     }
 
     public OrderItem addItem(OrderItem i){
-
+        return i; // change later
     }
 
     public double calculateTotal(){
-
+        return 0; // change later
     }
 
     public String generateReceipt(){
-
+        return ""; // change later
     }
 }
