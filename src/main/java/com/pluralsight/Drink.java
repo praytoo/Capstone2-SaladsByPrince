@@ -19,6 +19,11 @@ public class Drink implements OrderItem{
 
     @Override
     public double getCost() {
-        return 0; // change later
+        return switch(size) {
+            case SMALL -> 4.0;
+            case MEDIUM -> 5.5;
+            case LARGE -> 6.0;
+            default -> throw new IllegalStateException("Unexpected value: " + size);
+        };
     }
 }

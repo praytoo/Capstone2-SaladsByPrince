@@ -27,9 +27,9 @@ public class Side implements OrderItem {
     @Override
     public double getCost() {
         return switch(size) {
-            case SMALL -> 3.0;
-            case MEDIUM -> 4.5;
-            case LARGE -> 6.0;
+            case SMALL -> 5.0;
+            case MEDIUM -> 7.5;
+            case LARGE -> 9.0;
             default -> throw new IllegalStateException("Unexpected value: " + size);
         };
     }

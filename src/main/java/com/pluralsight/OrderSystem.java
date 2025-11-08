@@ -61,7 +61,8 @@ public class OrderSystem {
                 1) Add item
                 2) Add drink
                 3) Add Main Side
-                4) Checkout
+                4) Add Signature Salad
+                5) Checkout
                 0) Cancel Order
                 """;
             switch (getNumberChoice(options)) {
@@ -75,6 +76,9 @@ public class OrderSystem {
                     addMainSide();
                     break;
                 case 4:
+                    Salad.getSignatureSalads();
+                    break;
+                case 5:
                     checkout();
                     break;
                 case 0:
@@ -87,89 +91,200 @@ public class OrderSystem {
         }
 
     public static boolean addSalad() {
-        System.out.println("Select your green type: Arugula, Spinach, or Lettuce");
-        String greenType = scanner.nextLine();
-        System.out.println("What size would you like it: small, medium, or large");
-        String size = scanner.nextLine();
-        java.util.List<String> meatToppings = new java.util.ArrayList<>();
-        String extraMeat;
+        System.out.println("Select your green type: 1) Arugula, 2) Spinach, or 3) Lettuce");
+        int greenType = scanner.nextInt();
+        scanner.nextLine();
+        GreenType green;
+        switch (greenType) {
+            case 1 -> green = GreenType.ARUGULA;
+            case 2 -> green = GreenType.SPINACH;
+            case 3 -> green = GreenType.LETTUCE;
+            default -> {
+                System.out.println("Invalid choice, defaulting to Arugula");
+                green = GreenType.ARUGULA;
+            }
+        }
+        System.out.println("What size would you like?: " +
+                "1) small\n" +
+                "2) medium\n" +
+                "3) large\n");
+        int size = scanner.nextInt();
+        scanner.nextLine();
+        Size saladSize;
+        switch (size) {
+            case 1 -> saladSize = Size.SMALL;
+            case 2 -> saladSize = Size.MEDIUM;
+            case 3 -> saladSize = Size.LARGE;
+            default -> {
+                System.out.println("Invalid choice, defaulting to SMALL");
+                saladSize = Size.SMALL;
+            }
+        }
+        java.util.List<Topping> meatToppings = new java.util.ArrayList<>();
+        String meatName;
+        int extraMeatCount;
         while (true) {
             System.out.println("Which meat topping would you like?: " +
-                    "Meat: -chicken\n" +
-                    "-tuna\n" +
-                    "-salmon\n" +
-                    "-beef\n" +
-                    "-prosciutto\n");
-            meatToppings.add(scanner.nextLine());
+                    "1) Chicken\n" +
+                    "2) Tuna\n" +
+                    "3) Salmon\n" +
+                    "4) Beef\n" +
+                    "5) Prosciutto\n");
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            switch (choice) {
+                case 1 -> meatName = "Chicken";
+                case 2 -> meatName = "Tuna";
+                case 3 -> meatName = "Salmon";
+                case 4 -> meatName = "Beef";
+                case 5 -> meatName = "Prosciutto";
+                default -> {
+                    System.out.println("Invalid choice, defaulting to Chicken");
+                    meatName = "Chicken";
+                }
+            }
+            meatToppings.add(new MeatTopping(meatName));
+
+            extraMeatCount = 0;
             System.out.println("Add extra meat? yes/no");
-            extraMeat = scanner.nextLine();
-            if (extraMeat.equalsIgnoreCase("no")) {
+            String extra = scanner.nextLine().trim();
+            if (extra.equalsIgnoreCase("yes")) {
+                extraMeatCount++;
                 break;
+            } else if (extra.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
-        java.util.List<String> premiumToppings = new java.util.ArrayList<>();
-        String extraPremium;
+        java.util.List<Topping> premiumToppings = new java.util.ArrayList<>();
+        String premiumName;
+        int extraPremCount;
         while (true) {
             System.out.println("Which premium cheese topping would you like?: " +
-                    "Premium topping: -mozzarella\n" +
-                    "-Brie\n" +
-                    "-goat cheese\n");
-            premiumToppings.add(scanner.nextLine());
+                    "Premium topping: 1) Mozzarella\n" +
+                    "2) Brie\n" +
+                    "3) Goat cheese\n");
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            switch (choice) {
+                case 1 -> premiumName = "Mozzarella";
+                case 2 -> premiumName = "Brie";
+                case 3 -> premiumName = "Goat cheese";
+                default -> {
+                    System.out.println("Invalid choice, defaulting to Mozzarella");
+                    premiumName = "Mozzarella";
+                }
+            }
+            premiumToppings.add(new PremiumTopping(premiumName));
+            extraPremCount = 0;
             System.out.println("Add extra premium toppings? yes/no");
-            extraPremium = scanner.nextLine();
-            if (extraPremium.equalsIgnoreCase("no")) {
+            String extra = scanner.nextLine().trim();
+            if (extra.equalsIgnoreCase("yes")) {
+                extraPremCount++;
                 break;
+            } else if (extra.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
-        String regularTopping = scanner.nextLine();
-        java.util.List<String> regularToppings = new java.util.ArrayList<>();
-        String extraReg;
+        java.util.List<Topping> regularToppings = new java.util.ArrayList<>();
+        String regularName;
+        int extraRegCount;
         while (true) {
             System.out.println("Which regular topping would you like?: " +
-                    "Other toppings: -croutons\n" +
-                    "-raisins\n" +
-                    "-carrots\n" +
-                    "-hard boiled egg\n" +
-                    "-walnuts\n" +
-                    "-avocado\n" +
-                    "-chickpeas\n");
-            regularToppings.add(scanner.nextLine());
+                    "Regular toppings: 1) Croutons\n" +
+                    "2) Raisins\n" +
+                    "3) Carrots\n" +
+                    "4) Hard Boiled Egg\n" +
+                    "5) Walnuts\n" +
+                    "6) Avocado\n" +
+                    "7) Chickpeas\n");
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            switch (choice) {
+                case 1 -> regularName = "Croutons";
+                case 2 -> regularName = "Raisins";
+                case 3 -> regularName = "Carrots";
+                case 4 -> regularName = "Hard Boiled Egg";
+                case 5 -> regularName = "Walnuts";
+                case 6 -> regularName = "Avocado";
+                case 7 -> regularName = "Chickpeas";
+                default -> {
+                    System.out.println("Invalid choice, defaulting to Croutons");
+                    regularName = "Croutons";
+                }
+            }
+            regularToppings.add(new RegularTopping(regularName));
+            extraRegCount = 0;
             System.out.println("Add extra regular toppings? yes/no");
-            extraReg = scanner.nextLine();
-            if (extraReg.equalsIgnoreCase("no")) {
+            String extra = scanner.nextLine().trim();
+            if (extra.equalsIgnoreCase("yes")) {
+                extraRegCount++;
                 break;
+            } else if (extra.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
-        java.util.List<String> dressing = new java.util.ArrayList<>();
-        String extraDressing;
+        java.util.List<Dressing> dressing = new java.util.ArrayList<>();
+        String dressingType;
+        int extraDressCount;
         while (true) {
             System.out.println("Which dressing would you like?: " +
-                    "Dressing: -balsamic vinaigrette and honey\n" +
-                    "-ranch and yogurt\n" +
-                    "-olive oil with lemon\n" +
-                    "-Caesar\n");
-            dressing.add(scanner.nextLine());
+                    "Dressing: 1) Balsamic Vinaigrette and Honey\n" +
+                    "2) Ranch with Yogurt\n" +
+                    "3) Olive Oil with Lemon\n" +
+                    "4) Caesar\n");
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            switch (choice) {
+                case 1 -> dressingType = "Balsamic Vinaigrette and Honey";
+                case 2 -> dressingType = "Ranch with Yogurt";
+                case 3 -> dressingType = "Olive Oil with Lemon";
+                case 4 -> dressingType = "Caesar";
+                default -> {
+                    System.out.println("Invalid choice, defaulting to Balsamic Vinaigrette and Honey");
+                    dressingType = "Balsamic Vinaigrette and Honey";
+                }
+            }
+            dressing.add(new Dressing(dressingType));
+            extraDressCount = 0;
             System.out.println("Add extra dressing? yes/no");
-            extraDressing = scanner.nextLine();
-            if (extraDressing.equalsIgnoreCase("no")) {
+            String extra = scanner.nextLine().trim();
+            if (extra.equalsIgnoreCase("yes")) {
+                extraDressCount++;
                 break;
+            } else if (extra.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
         int quinoaCount = 0;
+        String quinoa;
         while (true) {
             System.out.println("Add quinoa? yes/no");
-            String quinoa = scanner.nextLine();
-
+            quinoa = scanner.nextLine();
             if (quinoa.equalsIgnoreCase("yes")) {
                 quinoaCount++;
+                break;
             } else if (quinoa.equalsIgnoreCase("no")) {
                 break;
             } else {
                 System.out.println("not an option!");
             }
         }
+        List<Topping> toppings = new ArrayList<>();
 
-        recordSalad(greenType, size, meatToppings, extraMeat, premiumToppings, extraPremium, regularToppings, extraReg, dressing, extraDressing, quinoaCount);
+        for (int i = 0; i < extraMeatCount; i++) toppings.add(new MeatTopping(meatName));
+        for (int i = 0; i < extraPremCount; i++) toppings.add(new PremiumTopping(premiumName));
+        for (int i = 0; i < extraRegCount; i++) toppings.add(new RegularTopping(regularName));
+        for (int i = 0; i < quinoaCount; i++) toppings.add(new QuinoaTopping("Quinoa"));
+
+        Dressing dressing2 = new Dressing(dressingType);
+
+        Salad salad = new Salad(saladSize, green, toppings, dressing2);
+        currentOrder.add(salad);
+
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -186,30 +301,6 @@ public class OrderSystem {
 
         }
     }
-
-    //Recording transactions
-    public static boolean recordSalad(String greenType, String size, List<String> meatToppings, String extraMeat, List<String> premiumToppings, String extraPremium, List<String> regularToppings, String extraReg, List<String> dressing, String extraDressing, int quinoaCount) {
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-        String line = date.format(df) + "|" + time.format(tf) + "|" + greenType + "|" + size + "|" + meatToppings + "|" + extraMeat + "|" + premiumToppings + "|" + extraPremium + "|" + regularToppings + "|" + extraReg + "|" + dressing + "|" + extraDressing + "|" + "quinoa x" + quinoaCount;
-
-        Size saladSize = Size.valueOf(size.toUpperCase());
-        GreenType green = GreenType.valueOf(greenType.toUpperCase());
-        List<Topping> toppings = new ArrayList<>();
-        for (String meat : meatToppings) toppings.add(new MeatTopping(meat));
-        for (String premium : premiumToppings) toppings.add(new PremiumTopping(premium));
-        for (String regular : regularToppings) toppings.add(new RegularTopping(regular));
-        if (quinoaCount > 0) toppings.add(new QuinoaTopping("Quinoa"));
-        Dressing saladDressing = new Dressing(extraDressing);
-
-        Salad salad = new Salad(saladSize, green, toppings, saladDressing);
-        currentOrder.add(salad);
-        return true;
-    }
-
 
     public static boolean addDrink() {
         System.out.println("What size would you like?: " +
