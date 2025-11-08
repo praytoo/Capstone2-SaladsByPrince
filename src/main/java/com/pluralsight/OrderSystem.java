@@ -58,7 +58,7 @@ public class OrderSystem {
         String options = """
                 Please begin your order:
                 Would you like to...
-                1) Add item
+                1) Add salad
                 2) Add drink
                 3) Add Main Side
                 4) Add Signature Salad
@@ -284,8 +284,7 @@ public class OrderSystem {
         Dressing dressing2 = new Dressing(dressingType);
 
         Salad salad = new Salad(saladSize, green, toppings, dressing2, extraMeat, extraPremium, extraRegular, extraDressing, quinoaCount);
-        currentOrder.add(salad);
-
+        currentOrder.add(0, salad);
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -319,7 +318,7 @@ public class OrderSystem {
         }
 
         Salad selectedSalad = signatureSalads.get(choice - 1);
-        currentOrder.add(selectedSalad);
+        currentOrder.add(0, selectedSalad);
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -371,7 +370,7 @@ public class OrderSystem {
             }
         }
         Drink drink = new Drink(drinkFlavor, drinkSize);
-        currentOrder.add(drink);
+        currentOrder.add(0, drink);
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -423,7 +422,7 @@ public class OrderSystem {
             }
         }
         Side side = new Side(sideName, sideSize);
-        currentOrder.add(side);
+        currentOrder.add(0, side);
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -457,7 +456,7 @@ public class OrderSystem {
                 totalPrice += itemPrice;
             } else if (item instanceof Side side) {
                 double itemPrice = side.getCost();
-                System.out.println(side.getSize() + " side - Price: $" + itemPrice);
+                System.out.println(side.getSize() + " " + side.getSide() + " side - Price: $" + itemPrice);
                 totalPrice += itemPrice;
             }
         }
@@ -480,9 +479,9 @@ public class OrderSystem {
                                         .reduce((a, b) -> a + "/" + b)
                                         .orElse("");
                     } else if (item instanceof Drink drink) {
-                        line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
+                        line = "DRINK," + drink.getSize() + ", " + drink.getFlavor();
                     } else if (item instanceof Side side) {
-                        line = "SIDE," + side.getSize();
+                        line = "SIDE," + side.getSize() + ", " + side.getSide();
                     }
                     writer.write(line);
                     writer.newLine();
