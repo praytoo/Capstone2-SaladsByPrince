@@ -306,7 +306,7 @@ public class OrderSystem {
     public static boolean addSignatureSalad() {
         List<Salad> signatureSalads = Salad.getSignatureSalads();
 
-        System.out.println("Choose a signature salad:");
+        System.out.println("Choose a signature salad: ");
         for (int i = 0; i < signatureSalads.size(); i++) {
             System.out.println((i + 1) + ") " + signatureSalads.get(i));
         }
