@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Create Pizza</title></head>
+<th:block th:replace="layout :: content(~{::body})" xmlns:th="http://www.thymeleaf.org">
+    <body>
+    <h1>Build Your Pizza</h1>
+
+<form method="post">
+
+    <label>Size:</label>
+    <select name="size">
+        <option th:each="s : ${sizes}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <br><br>
+
+    <label>Crust:</label>
+    <select name="crust">
+        <option th:each="c : ${crusts}" th:value="${c}" th:text="${c}"></option>
+    </select>
+    <br><br>
+
+    <h3>Stuffed Crust (+$2)</h3>
+    <input type="checkbox" name="stuffedCrust">
+
+    <h3>Regular Toppings (included)</h3>
+    <div th:each="t : ${regularToppings}">
+        <label><input type="checkbox" name="toppingNames" th:value="${t.name}"> <span th:text="${t.name}"></span></label><br>
+    </div>
+
+    <h3>Premium Toppings (extra)</h3>
+    <div th:each="t : ${premiumToppings}">
+        <label><input type="checkbox" name="toppingNames" th:value="${t.name}"> <span th:text="${t.name}"></span></label><br>
+    </div>
+
+    <br>
+    <button type="submit">Add to Order</button>
+
+</form>
+</body>
+</th:block>
+</html>

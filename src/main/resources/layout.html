@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/luxury.css}">
+    <title th:text="${title}">Menu</title>
+</head>
+<body>
+<div class="container">
+    <th:block th:replace="${content}"></th:block>
+</div>
+</body>
+</html>

@@ -193,7 +193,7 @@ public class Salad implements OrderItem{
 
     @Override
     public String toString() {
-        return size + " " + green + " salad with " + toppings.getFirst().getName() + ", " + toppings.getLast().getName() + " and " + dressing.getName();
+        return size + " " + green + " salad with " + toppings.get(0).getName() + ", " + toppings.get(toppings.size() - 1).getName() + " and " + dressing.getName();
     }
 
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"/><title>Custom Food Shop</title></head>
+<body>
+<h1>Custom Food Shop</h1>
+<a href="/order">New Order</a>
+<h3>Current Order</h3>
+<ul>
+    <li th:each="item : ${order.items}">
+        <span th:text="${item.displayName}">Item</span> - $<span th:text="${item.cost}">0.00</span>
+    </li>
+</ul>
+</body>
+</html>
