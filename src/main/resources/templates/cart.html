@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Your Order</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart - Custom Food Shop</title>
+</head>
 <body>
 
 <h1>Your Cart</h1>
 
+<!-- Table view -->
 <table border="1" cellpadding="6">
     <tr>
         <th>Item</th>
         <th>Cost</th>
     </tr>
-
     <tr th:each="item : ${items}">
         <td th:text="${item.displayName}"></td>
         <td th:text="${item.cost}"></td>
     </tr>
-
     <tr>
         <td><strong>Total:</strong></td>
         <td><strong th:text="${total}"></strong></td>
     </tr>
 </table>
 
-<br>
+<!-- List view -->
+<h2>Your Cart</h2>
+<ul>
+    <li th:each="item : ${items}">
+        <span th:text="${item.displayName}"></span> - $<span th:text="${item.cost}"></span>
+    </li>
+</ul>
 
-<a href="/checkout"><button>Checkout</button></a>
+<h3>Total: $<span th:text="${total}"></span></h3>
 
-<br>
+<!-- Navigation -->
+<a th:href="@{/menu}">Back to Menu</a>
 
-<a href="/">Back to Menu</a>
+<!-- Checkout -->
+<form action="/checkout" method="post">
+    <button type="submit">Checkout</button>
+</form>
 
 </body>
 </html>

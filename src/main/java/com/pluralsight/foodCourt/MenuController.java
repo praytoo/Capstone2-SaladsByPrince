@@ -66,7 +66,7 @@ public class MenuController {
 
         Salad salad = new Salad(size, GreenType.valueOf(green), toppings, new Dressing(dressing));
         cartService.addItem(salad);
-        return "redirect:/menu";
+        return "redirect:/cart";
     }
 
     // ----- Pizza -----
@@ -101,7 +101,7 @@ public class MenuController {
 
         Pizza pizza = new Pizza(size, crust, toppings, stuffedCrust);
         cartService.addItem(pizza);
-        return "redirect:/menu";
+        return "redirect:/cart";
     }
 
     // ----- Sandwich -----
@@ -136,7 +136,7 @@ public class MenuController {
 
         Sandwich sandwich = new Sandwich(size, bread, toppings, toasted);
         cartService.addItem(sandwich);
-        return "redirect:/menu";
+        return "redirect:/cart";
     }
 
     // ----- Taco -----
@@ -171,7 +171,7 @@ public class MenuController {
 
         Taco taco = new Taco(size, shell, toppings, doubleShell);
         cartService.addItem(taco);
-        return "redirect:/menu";
+        return "redirect:/cart";
     }
 
     // ----- Cart -----
@@ -183,8 +183,21 @@ public class MenuController {
     }
 
     @GetMapping("/checkout")
-    public String checkout() {
-        return "redirect:/receipt";
+    public String checkoutPage(Model model) {
+        model.addAttribute("items", cartService.getItems());
+        model.addAttribute("total", cartService.getTotal());
+        return "checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String checkoutCart(Model model) {
+        double total = cartService.getTotal();
+        List<OrderItem> items = cartService.getItems();
+
+        model.addAttribute("items", items);
+        model.addAttribute("total", total);
+
+        return "checkout";
     }
 
     // ----- Home / Menu Service -----
