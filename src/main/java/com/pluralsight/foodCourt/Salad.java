@@ -29,7 +29,6 @@ public class Salad implements OrderItem {
     public GreenType getGreen() { return green; }
     public List<Topping> getToppings() { return toppings; }
     public Dressing getDressing() { return dressing; }
-    public String getDisplayName() { return name; }
 
     @Override
     public double getCost() {
@@ -60,6 +59,11 @@ public class Salad implements OrderItem {
                 List.of(new PremiumTopping("Tuna")),
                 new Dressing("Olive Oil and Lemon")));
         return list;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return size + " " + green + " Salad";
     }
 }
 

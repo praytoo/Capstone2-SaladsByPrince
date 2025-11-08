@@ -33,7 +33,7 @@ public class Sandwich implements OrderItem {
 
     @Override
     public String getDisplayName() {
-        return name + (toasted ? " [Toasted]" : "");
+        return size + " " + bread + " Sandwich" + (toasted ? " [Toasted]" : "");
     }
 }
 

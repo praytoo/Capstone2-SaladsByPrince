@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Taco</title>
+</head>
+<body>
+<h1>Add Taco</h1>
+
+<form action="#" th:action="@{/addTaco}" method="post">
+    <!-- Size -->
+    <label for="size">Size:</label>
+    <select id="size" name="size">
+        <option th:each="s : ${sizes}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <br/>
+
+    <!-- Shell -->
+    <label for="shell">Shell:</label>
+    <select id="shell" name="shell">
+        <option th:each="sh : ${shells}" th:value="${sh}" th:text="${sh}"></option>
+    </select>
+    <br/>
+
+    <!-- Toppings -->
+    <h3>Regular Toppings:</h3>
+    <div th:each="t : ${regularToppings}">
+        <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}"/>
+        <label th:for="${t.name}" th:text="${t.name}">Topping</label>
+    </div>
+
+    <h3>Premium Toppings:</h3>
+    <div th:each="t : ${premiumToppings}">
+        <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}"/>
+        <label th:for="${t.name}" th:text="${t.name}">Topping</label>
+    </div>
+
+    <!-- Double shell -->
+    <h4>Extras:</h4>
+    <input type="checkbox" name="doubleShell" value="true" /> Double Shell
+
+    <br/><br/>
+
+    <button type="submit">Add Taco</button>
+</form>
+
+<a th:href="@{/menu}">Back to Menu</a>
+</body>
+</html>

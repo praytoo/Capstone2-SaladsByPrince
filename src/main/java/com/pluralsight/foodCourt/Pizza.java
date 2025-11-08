@@ -34,7 +34,7 @@ public class Pizza implements OrderItem {
 
     @Override
     public String getDisplayName() {
-        return name;
+        return size + " " + crust + " Pizza" + (stuffedCrust ? " [Stuffed Crust]" : "");
     }
 }
 

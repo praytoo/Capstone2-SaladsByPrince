@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Salad</title>
+</head>
+<body>
+<h1>Add Salad</h1>
+
+<form th:action="@{/addSalad}" method="post">
+
+    <!-- Size Dropdown -->
+    <label for="size">Size:</label>
+    <select name="size" id="size" required>
+        <option th:each="s : ${sizes}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <br/><br/>
+
+    <!-- Green Dropdown -->
+    <label for="green">Green:</label>
+    <select name="green" id="green" required>
+        <option th:each="g : ${greens}" th:value="${g}" th:text="${g}"></option>
+    </select>
+    <br/><br/>
+
+    <!-- Toppings Checkboxes -->
+    <fieldset>
+        <legend>Toppings:</legend>
+
+        <div>
+            <strong>Regular Toppings:</strong><br/>
+            <div th:each="t : ${regularToppings}">
+                <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}">
+                <label th:for="${t.name}" th:text="${t.name}"></label><br/>
+            </div>
+        </div>
+
+        <div>
+            <strong>Premium Toppings:</strong><br/>
+            <div th:each="t : ${premiumToppings}">
+                <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}">
+                <label th:for="${t.name}" th:text="${t.name}"></label><br/>
+            </div>
+        </div>
+
+    </fieldset>
+    <br/>
+
+    <!-- Dressing Dropdown -->
+    <label for="dressing">Dressing:</label>
+    <select name="dressing" id="dressing" required>
+        <option th:each="d : ${dressings}" th:value="${d}" th:text="${d}"></option>
+    </select>
+    <br/><br/>
+
+    <button type="submit">Add Salad</button>
+</form>
+
+<a th:href="@{/menu}">Back to Menu</a>
+</body>
+</html>

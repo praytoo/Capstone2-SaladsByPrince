@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Pizza</title>
+</head>
+<body>
+<h1>Add Pizza</h1>
+
+<form action="#" th:action="@{/addPizza}" method="post">
+    <!-- Size -->
+    <label for="size">Size:</label>
+    <select id="size" name="size">
+        <option th:each="s : ${sizes}" th:value="${s}" th:text="${s}"></option>
+    </select>
+    <br/>
+
+    <!-- Crust -->
+    <label for="crust">Crust:</label>
+    <select id="crust" name="crust">
+        <option th:each="c : ${crusts}" th:value="${c}" th:text="${c}"></option>
+    </select>
+    <br/>
+
+    <!-- Toppings -->
+    <h3>Regular Toppings:</h3>
+    <div th:each="t : ${regularToppings}">
+        <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}"/>
+        <label th:for="${t.name}" th:text="${t.name}">Topping</label>
+    </div>
+
+    <h3>Premium Toppings:</h3>
+    <div th:each="t : ${premiumToppings}">
+        <input type="checkbox" th:id="${t.name}" th:name="toppingNames" th:value="${t.name}"/>
+        <label th:for="${t.name}" th:text="${t.name}">Topping</label>
+    </div>
+
+    <!-- Stuffed crust -->
+    <h4>Extras:</h4>
+    <input type="checkbox" name="stuffedCrust" value="true" /> Stuffed Crust
+
+    <br/><br/>
+
+    <button type="submit">Add Pizza</button>
+</form>
+
+<a th:href="@{/menu}">Back to Menu</a>
+</body>
+</html>

@@ -33,7 +33,7 @@ public class Taco implements OrderItem {
 
     @Override
     public String getDisplayName() {
-        return name + (doubleShell ? " [Double Shell]" : "");
+        return size + " " + shell + " Taco" + (doubleShell ? " [Double Shell]" : "");
     }
 }
 

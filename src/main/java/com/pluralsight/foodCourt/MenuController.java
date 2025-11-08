@@ -28,8 +28,21 @@ public class MenuController {
     @GetMapping("/addSalad")
     public String saladForm(Model model) {
         model.addAttribute("sizes", Size.values());
-        model.addAttribute("regularToppings", toppingService.getRegularToppings());
-        model.addAttribute("premiumToppings", toppingService.getPremiumToppings());
+        model.addAttribute("greens", GreenType.values());
+        model.addAttribute("regularToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.SALAD && !t.isPremium())
+                        .toList()
+        );
+        model.addAttribute("premiumToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.SALAD && t.isPremium())
+                        .toList()
+        );
+
+        List<String> dressings = List.of("Balsamic Vinaigrette with Honey", "Olivie Oil with Lemon", "Ranch with Yogurt", "Caesar");
+        model.addAttribute("dressings", dressings);
+
         return "add-salad";
     }
 
@@ -53,7 +66,7 @@ public class MenuController {
 
         Salad salad = new Salad(size, GreenType.valueOf(green), toppings, new Dressing(dressing));
         cartService.addItem(salad);
-        return "redirect:/";
+        return "redirect:/menu";
     }
 
     // ----- Pizza -----
@@ -61,8 +74,16 @@ public class MenuController {
     public String pizzaForm(Model model) {
         model.addAttribute("sizes", Size.values());
         model.addAttribute("crusts", List.of("PAN", "DEEPDISH", "THIN"));
-        model.addAttribute("regularToppings", toppingService.getRegularToppings());
-        model.addAttribute("premiumToppings", toppingService.getPremiumToppings());
+        model.addAttribute("regularToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.PIZZA && !t.isPremium())
+                        .toList()
+        );
+        model.addAttribute("premiumToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.PIZZA && t.isPremium())
+                        .toList()
+        );
         return "add-pizza";
     }
 
@@ -74,15 +95,13 @@ public class MenuController {
 
         List<Topping> toppings = new ArrayList<>();
         if (toppingNames != null) {
-            toppings.addAll(toppingService.getRegularToppings()
-                    .stream().filter(t -> toppingNames.contains(t.getName())).toList());
-            toppings.addAll(toppingService.getPremiumToppings()
+            toppings.addAll(toppingService.getPizzaToppings()
                     .stream().filter(t -> toppingNames.contains(t.getName())).toList());
         }
 
         Pizza pizza = new Pizza(size, crust, toppings, stuffedCrust);
         cartService.addItem(pizza);
-        return "redirect:/";
+        return "redirect:/menu";
     }
 
     // ----- Sandwich -----
@@ -90,8 +109,16 @@ public class MenuController {
     public String sandwichForm(Model model) {
         model.addAttribute("sizes", Size.values());
         model.addAttribute("breads", List.of("White", "Wheat", "Sourdough", "Rye"));
-        model.addAttribute("regularToppings", toppingService.getRegularToppings());
-        model.addAttribute("premiumToppings", toppingService.getPremiumToppings());
+        model.addAttribute("regularToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.SANDWICH && !t.isPremium())
+                        .toList()
+        );
+        model.addAttribute("premiumToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.SANDWICH && t.isPremium())
+                        .toList()
+        );
         return "add-sandwich";
     }
 
@@ -103,15 +130,13 @@ public class MenuController {
 
         List<Topping> toppings = new ArrayList<>();
         if (toppingNames != null) {
-            toppings.addAll(toppingService.getRegularToppings()
-                    .stream().filter(t -> toppingNames.contains(t.getName())).toList());
-            toppings.addAll(toppingService.getPremiumToppings()
+            toppings.addAll(toppingService.getSandwichToppings()
                     .stream().filter(t -> toppingNames.contains(t.getName())).toList());
         }
 
         Sandwich sandwich = new Sandwich(size, bread, toppings, toasted);
         cartService.addItem(sandwich);
-        return "redirect:/";
+        return "redirect:/menu";
     }
 
     // ----- Taco -----
@@ -119,8 +144,16 @@ public class MenuController {
     public String tacoForm(Model model) {
         model.addAttribute("sizes", Size.values());
         model.addAttribute("shells", List.of("Flour Tortilla", "Corn Tortilla"));
-        model.addAttribute("regularToppings", toppingService.getRegularToppings());
-        model.addAttribute("premiumToppings", toppingService.getPremiumToppings());
+        model.addAttribute("regularToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.TACO && !t.isPremium())
+                        .toList()
+        );
+        model.addAttribute("premiumToppings",
+                ToppingService.toppings.stream()
+                        .filter(t -> t.getCategory() == Category.TACO && t.isPremium())
+                        .toList()
+        );
         return "add-taco";
     }
 
@@ -132,15 +165,13 @@ public class MenuController {
 
         List<Topping> toppings = new ArrayList<>();
         if (toppingNames != null) {
-            toppings.addAll(toppingService.getRegularToppings()
-                    .stream().filter(t -> toppingNames.contains(t.getName())).toList());
-            toppings.addAll(toppingService.getPremiumToppings()
+            toppings.addAll(toppingService.getTacoToppings()
                     .stream().filter(t -> toppingNames.contains(t.getName())).toList());
         }
 
         Taco taco = new Taco(size, shell, toppings, doubleShell);
         cartService.addItem(taco);
-        return "redirect:/";
+        return "redirect:/menu";
     }
 
     // ----- Cart -----
@@ -162,4 +193,20 @@ public class MenuController {
         model.addAttribute("menuItems", menuService.getAllItems());
         return "home";
     }
+
+    @GetMapping("/order")
+    public String orderPage(Model model) {
+        model.addAttribute("sizes", Size.values());
+        model.addAttribute("regularToppings", toppingService.getRegularToppings());
+        model.addAttribute("premiumToppings", toppingService.getPremiumToppings());
+        model.addAttribute("cartItems", cartService.getItems());
+        return "order"; // matches order.html in templates/
+    }
+
+    @GetMapping("/menu")
+    public String menu() {
+        return "menu"; // renders menu.html
+    }
+
+
 }

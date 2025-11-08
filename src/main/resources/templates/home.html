@@ -6,7 +6,7 @@
 <a href="/order">New Order</a>
 <h3>Current Order</h3>
 <ul>
-    <li th:each="item : ${order.items}">
+    <li th:each="item : ${menuItems}">
         <span th:text="${item.displayName}">Item</span> - $<span th:text="${item.cost}">0.00</span>
     </li>
 </ul>
