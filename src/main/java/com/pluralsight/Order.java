@@ -11,15 +11,28 @@ public class Order {
         return items;
     }
 
-    public OrderItem addItem(OrderItem i){
-        return i; // change later
+    public void addItem(OrderItem item){
+        items.add(item);
     }
 
     public double calculateTotal(){
-        return 0; // change later
+        double total = 0;
+        for (OrderItem item : items) {
+            total += item.getCost();
+        }
+        return total;
     }
 
     public String generateReceipt(){
-        return ""; // change later
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("--- Receipt ---\n");
+        receipt.append("Order Time: ").append(orderDateTime).append("\n\n");
+
+        for (OrderItem item : items) {
+            receipt.append(item.toString()).append("\n");
+        }
+
+        receipt.append("\nTotal: $").append(String.format("%.2f", calculateTotal()));
+        return receipt.toString();
     }
 }

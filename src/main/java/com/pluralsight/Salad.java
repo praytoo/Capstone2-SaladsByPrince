@@ -43,6 +43,19 @@ public class Salad implements OrderItem{
         this.dressing = dressing;
     }
 
+    public Salad(Size size, GreenType green, List<Topping> toppings, Dressing dressing, int extraMeat, int extraPremium, int extraRegular, int extraDressing, int quinoaCount) {
+        this.size = size;
+        this.green = green;
+        this.toppings = toppings;
+        this.dressing = dressing;
+        this.extraMeat = extraMeat;
+        this.extraPremium = extraPremium;
+        this.extraRegular = extraRegular;
+        this.extraDressing = extraDressing;
+        this.quinoaCount = quinoaCount;
+    }
+
+
     public void setDressing(Dressing dressing) {
         this.dressing = dressing;
     }
@@ -104,7 +117,41 @@ public class Salad implements OrderItem{
                 };
             }
         }
-
+        if (extraDressing > 0) {
+            price += switch (size) {
+                case SMALL -> 0.5 * extraDressing;
+                case MEDIUM -> 0.75 * extraDressing;
+                case LARGE -> 1.0 * extraDressing;
+            };
+        }
+        if (extraMeat > 0) {
+            price += switch (size) {
+                case SMALL -> 0.5 * extraMeat;
+                case MEDIUM -> 0.75 * extraMeat;
+                case LARGE -> 1.0 * extraMeat;
+            };
+        }
+        if (extraPremium > 0) {
+            price += switch (size) {
+                case SMALL -> 0.5 * extraPremium;
+                case MEDIUM -> 0.75 * extraPremium;
+                case LARGE -> 1.0 * extraPremium;
+            };
+        }
+        if (extraRegular > 0) {
+            price += switch (size) {
+                case SMALL -> 0.5 * extraRegular;
+                case MEDIUM -> 0.75 * extraRegular;
+                case LARGE -> 1.0 * extraRegular;
+            };
+        }
+        if (quinoaCount > 0) {
+            price += switch (size) {
+                case SMALL -> 0.5 * quinoaCount;
+                case MEDIUM -> 0.75 * quinoaCount;
+                case LARGE -> 1.0 * quinoaCount;
+            };
+        }
         return price;
     }
 
@@ -143,4 +190,10 @@ public class Salad implements OrderItem{
 
     return list;
     }
+
+    @Override
+    public String toString() {
+        return size + " " + green + " salad with " + toppings.getFirst().getName() + ", " + toppings.getLast().getName() + " and " + dressing.getName();
+    }
+
 }

@@ -76,7 +76,7 @@ public class OrderSystem {
                     addMainSide();
                     break;
                 case 4:
-                    Salad.getSignatureSalads();
+                    addSignatureSalad();
                     break;
                 case 5:
                     checkout();
@@ -122,7 +122,7 @@ public class OrderSystem {
         }
         java.util.List<Topping> meatToppings = new java.util.ArrayList<>();
         String meatName;
-        int extraMeatCount;
+        int extraMeat;
         while (true) {
             System.out.println("Which meat topping would you like?: " +
                     "1) Chicken\n" +
@@ -144,11 +144,11 @@ public class OrderSystem {
             }
             meatToppings.add(new MeatTopping(meatName));
 
-            extraMeatCount = 0;
+            extraMeat = 0;
             System.out.println("Add extra meat? yes/no");
             String extra = scanner.nextLine().trim();
             if (extra.equalsIgnoreCase("yes")) {
-                extraMeatCount++;
+                extraMeat++;
                 break;
             } else if (extra.equalsIgnoreCase("no")) {
                 break;
@@ -158,7 +158,7 @@ public class OrderSystem {
         }
         java.util.List<Topping> premiumToppings = new java.util.ArrayList<>();
         String premiumName;
-        int extraPremCount;
+        int extraPremium;
         while (true) {
             System.out.println("Which premium cheese topping would you like?: " +
                     "Premium topping: 1) Mozzarella\n" +
@@ -175,11 +175,11 @@ public class OrderSystem {
                 }
             }
             premiumToppings.add(new PremiumTopping(premiumName));
-            extraPremCount = 0;
+            extraPremium = 0;
             System.out.println("Add extra premium toppings? yes/no");
             String extra = scanner.nextLine().trim();
             if (extra.equalsIgnoreCase("yes")) {
-                extraPremCount++;
+                extraPremium++;
                 break;
             } else if (extra.equalsIgnoreCase("no")) {
                 break;
@@ -189,7 +189,7 @@ public class OrderSystem {
         }
         java.util.List<Topping> regularToppings = new java.util.ArrayList<>();
         String regularName;
-        int extraRegCount;
+        int extraRegular;
         while (true) {
             System.out.println("Which regular topping would you like?: " +
                     "Regular toppings: 1) Croutons\n" +
@@ -214,11 +214,11 @@ public class OrderSystem {
                 }
             }
             regularToppings.add(new RegularTopping(regularName));
-            extraRegCount = 0;
+            extraRegular = 0;
             System.out.println("Add extra regular toppings? yes/no");
             String extra = scanner.nextLine().trim();
             if (extra.equalsIgnoreCase("yes")) {
-                extraRegCount++;
+                extraRegular++;
                 break;
             } else if (extra.equalsIgnoreCase("no")) {
                 break;
@@ -228,7 +228,7 @@ public class OrderSystem {
         }
         java.util.List<Dressing> dressing = new java.util.ArrayList<>();
         String dressingType;
-        int extraDressCount;
+        int extraDressing;
         while (true) {
             System.out.println("Which dressing would you like?: " +
                     "Dressing: 1) Balsamic Vinaigrette and Honey\n" +
@@ -247,11 +247,11 @@ public class OrderSystem {
                 }
             }
             dressing.add(new Dressing(dressingType));
-            extraDressCount = 0;
+            extraDressing = 0;
             System.out.println("Add extra dressing? yes/no");
             String extra = scanner.nextLine().trim();
             if (extra.equalsIgnoreCase("yes")) {
-                extraDressCount++;
+                extraDressing++;
                 break;
             } else if (extra.equalsIgnoreCase("no")) {
                 break;
@@ -275,14 +275,15 @@ public class OrderSystem {
         }
         List<Topping> toppings = new ArrayList<>();
 
-        for (int i = 0; i < extraMeatCount; i++) toppings.add(new MeatTopping(meatName));
-        for (int i = 0; i < extraPremCount; i++) toppings.add(new PremiumTopping(premiumName));
-        for (int i = 0; i < extraRegCount; i++) toppings.add(new RegularTopping(regularName));
+        for (int i = 0; i < extraMeat; i++) toppings.add(new MeatTopping(meatName));
+        for (int i = 0; i < extraPremium; i++) toppings.add(new PremiumTopping(premiumName));
+        for (int i = 0; i < extraRegular; i++) toppings.add(new RegularTopping(regularName));
+        for (int i = 0; i < extraDressing; i++) dressing.add(new Dressing(dressingType));
         for (int i = 0; i < quinoaCount; i++) toppings.add(new QuinoaTopping("Quinoa"));
 
         Dressing dressing2 = new Dressing(dressingType);
 
-        Salad salad = new Salad(saladSize, green, toppings, dressing2);
+        Salad salad = new Salad(saladSize, green, toppings, dressing2, extraMeat, extraPremium, extraRegular, extraDressing, quinoaCount);
         currentOrder.add(salad);
 
 
@@ -301,6 +302,40 @@ public class OrderSystem {
 
         }
     }
+
+    public static boolean addSignatureSalad() {
+        List<Salad> signatureSalads = Salad.getSignatureSalads();
+
+        System.out.println("Choose a signature salad:");
+        for (int i = 0; i < signatureSalads.size(); i++) {
+            System.out.println((i + 1) + ") " + signatureSalads.get(i));
+        }
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > signatureSalads.size()) {
+            System.out.println("Invalid selection");
+            return orderScreen();
+        }
+
+        Salad selectedSalad = signatureSalads.get(choice - 1);
+        currentOrder.add(selectedSalad);
+
+        while (true) {
+            System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
+            String checkout = scanner.nextLine();
+            if (checkout.equalsIgnoreCase("yes")) {
+                return checkout();
+            } else if (checkout.equalsIgnoreCase("no")) {
+                return orderScreen();
+            } else if (checkout.equalsIgnoreCase("cancel")) {
+                return homeScreen();
+            } else {
+                System.out.println("Not an option!");
+            }
+        }
+    }
+
 
     public static boolean addDrink() {
         System.out.println("What size would you like?: " +

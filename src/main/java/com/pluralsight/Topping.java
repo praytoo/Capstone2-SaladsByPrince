@@ -10,8 +10,4 @@ public abstract class Topping {
     public Topping(String name) {
         this.name = name;
     }
-
-    public double getCost(Size size, boolean extra) {
-    return 0; //change later
-    }
 }
