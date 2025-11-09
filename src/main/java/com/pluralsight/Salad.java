@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,9 @@ public class Salad implements OrderItem {
         this.extraRegular = extraRegular;
         this.extraDressing = extraDressing;
         this.quinoaCount = quinoaCount;
+    }
+
+    public Salad(String regularName) {
     }
 
 
@@ -178,21 +182,21 @@ public class Salad implements OrderItem {
         Salad balsamicHoney = new Salad(
                 Size.SMALL,
                 GreenType.ARUGULA,
-                List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins")),
+                new ArrayList<>(List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins"))),
                 new Dressing("Balsamic Vinaigrette and Honey"));
         list.add(balsamicHoney);
 
         Salad chickenCaesar = new Salad(
                 Size.SMALL,
                 GreenType.LETTUCE,
-                List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons")),
+                new ArrayList<>(List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons"))),
                 new Dressing("Caesar"));
         list.add(chickenCaesar);
 
         Salad oliveOil = new Salad(
                 Size.SMALL,
                 GreenType.SPINACH,
-                List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado")),
+                new ArrayList<>(List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado"))),
                 new Dressing("Olive oil and Lemon"));
         list.add(oliveOil);
 

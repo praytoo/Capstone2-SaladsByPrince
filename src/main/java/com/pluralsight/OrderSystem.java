@@ -6,9 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class OrderSystem {
     //scanner for input
@@ -330,33 +328,89 @@ public class OrderSystem {
         for (int i = 0; i < signatureSalads.size(); i++) {
             System.out.println((i + 1) + ") " + signatureSalads.get(i));
         }
-        int choice = scanner.nextInt();
+        int saladChoice = scanner.nextInt();
         scanner.nextLine();
 
-        if (choice < 1 || choice > signatureSalads.size()) {
+        if (saladChoice < 1 || saladChoice > signatureSalads.size()) {
             System.out.println("Invalid selection");
             return orderScreen();
         }
-
-        //add salad to current order
-        Salad selectedSalad = signatureSalads.get(choice - 1);
-        currentOrder.add(0, selectedSalad);
-
-        //ready to check out input
+        //add toppings input
+        System.out.println("Would you like to add any toppings?");
+        String regularName;
         while (true) {
-            System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
-            String checkout = scanner.nextLine();
-            if (checkout.equalsIgnoreCase("yes")) {
-                System.out.println("Checking out...");
-                return checkout();
-            } else if (checkout.equalsIgnoreCase("no")) {
-                System.out.println("Add more items to your order...");
-                return orderScreen();
-            } else if (checkout.equalsIgnoreCase("cancel")) {
-                System.out.println("Order canceled. Returning to home screen.");
-                return false;
-            } else {
-                System.out.println("Not an option!");
+            System.out.println("Which regular topping would you like?: " +
+                    "Regular toppings: 1) Croutons\n" +
+                    "2) Raisins\n" +
+                    "3) Carrots\n" +
+                    "4) Hard Boiled Egg\n" +
+                    "5) Walnuts\n" +
+                    "6) Avocado\n" +
+                    "7) Chickpeas\n" +
+                    "8) No additional toppings\n");
+            int toppingChoice = Integer.parseInt(scanner.nextLine().trim());
+            switch (toppingChoice) {
+                case 1 -> regularName = "Croutons";
+                case 2 -> regularName = "Raisins";
+                case 3 -> regularName = "Carrots";
+                case 4 -> regularName = "Hard Boiled Egg";
+                case 5 -> regularName = "Walnuts";
+                case 6 -> regularName = "Avocado";
+                case 7 -> regularName = "Chickpeas";
+                case 8 -> regularName = "No additional toppings";
+                default -> {
+                    System.out.println("Invalid choice, defaulting to Croutons");
+                    regularName = "Croutons";
+                }
+            }
+            signatureSalads.add(new Salad(regularName));
+
+            //add salad to current order
+            Salad selectedSalad = signatureSalads.get(saladChoice - 1);
+
+            // Show current toppings
+            System.out.println("Current toppings: ");
+            for (int i = 0; i < selectedSalad.getToppings().size(); i++) {
+                System.out.println((i + 1) + ") " + selectedSalad.getToppings().get(i).getName());
+            }
+
+        // ask user if they want to remove any toppings
+            System.out.println("Do you want to remove any toppings? (yes/no)");
+            String removeChoice = scanner.nextLine().trim();
+
+            if (removeChoice.equalsIgnoreCase("yes")) {
+                while (true) {
+                    System.out.println("Enter the number of the topping to remove (or 0 to finish):");
+                    int toppingIndex = Integer.parseInt(scanner.nextLine().trim());
+
+                    if (toppingIndex == 0) break;
+                    if (toppingIndex < 1 || toppingIndex > selectedSalad.getToppings().size()) {
+                        System.out.println("Invalid choice, try again.");
+                    } else {
+                        Topping removed = selectedSalad.getToppings().remove(toppingIndex - 1);
+                        System.out.println("Removed: " + removed.getName());
+                    }
+                }
+            }
+            //add signature salad to current order
+            currentOrder.add(0, selectedSalad);
+
+            //ready to check out input
+            while (true) {
+                System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
+                String checkout = scanner.nextLine();
+                if (checkout.equalsIgnoreCase("yes")) {
+                    System.out.println("Checking out...");
+                    return checkout();
+                } else if (checkout.equalsIgnoreCase("no")) {
+                    System.out.println("Add more items to your order...");
+                    return orderScreen();
+                } else if (checkout.equalsIgnoreCase("cancel")) {
+                    System.out.println("Order canceled. Returning to home screen.");
+                    return false;
+                } else {
+                    System.out.println("Not an option!");
+                }
             }
         }
     }
@@ -545,9 +599,22 @@ public class OrderSystem {
         for (OrderItem item : currentOrder) {
             if (item instanceof Salad salad) {
                 double itemPrice = salad.calculatePrice();
-                sb.append(salad.getGreen())
-                        .append(" salad - Size: ").append(salad.getSize())
-                        .append(" - Price: $").append(itemPrice).append("\n");
+                List<Topping> toppings = salad.getToppings();
+                String toppingNames = toppings.stream()
+                        .map(Topping::getName)
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("");
+                Optional<List<Topping>> toppings2 = salad.getToppings2();
+                String toppingNames2 = toppings.stream()
+                        .map(Topping::getName)
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("");
+                sb.append(salad.getGreen());
+                if (!toppingNames.isEmpty()) {
+                    sb.append(" (").append(toppingNames).append(")")
+                            .append(" salad - Size: ").append(salad.getSize())
+                            .append(" - Price: $").append(itemPrice).append("\n");
+                }
                 totalPrice += itemPrice;
             } else if (item instanceof Drink drink) {
                 double itemPrice = drink.getCost();
