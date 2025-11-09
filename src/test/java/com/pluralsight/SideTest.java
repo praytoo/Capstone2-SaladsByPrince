@@ -11,7 +11,7 @@ class SideTest {
     @DisplayName("Get Cost for Side Accuracy")
     void getCost() {
         //arrange
-        Side side = new Side(new Side ("Sweet Potato"), Size.SMALL);
+        Side side = new Side("Sweet Potato", Size.SMALL);
         double expectedResult = 5;
         //act
         double result = side.getCost();
@@ -23,7 +23,7 @@ class SideTest {
     @DisplayName("Get Null Cost for Side Accuracy")
     void getNullCost() {
         //arrange
-        Side side = new Side(new Side ("Sweet Potato"), null);
+        Side side = new Side("Sweet Potato", null);
         double expectedResult = 0.0;
         //act
         double result = side.getCost();

@@ -20,11 +20,11 @@ public class Taco implements OrderItem {
 
     @Override
     public double getCost() {
-        double base = switch(size) {
-            case SMALL -> 3.50;
-            case MEDIUM -> 6.00;
-            case LARGE -> 8.00;
-            default -> 8.00;
+        double base = switch (size) {
+            case SMALL -> 5.50;
+            case MEDIUM -> 7.00;
+            case LARGE -> 9.50;
+            default -> 0.00;
         };
         if (doubleShell) base += 1.00;
         for (Topping t : toppings) base += t.getCost(size, false);

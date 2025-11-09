@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private static List<OrderItem> items = new ArrayList<>();;
+    private static List<OrderItem> items = new ArrayList<>();
+    ;
     private LocalDateTime orderDateTime;
 
     public List<OrderItem> getItems() {
         return items;
     }
 
-    public void addItem(OrderItem item){
+    public void addItem(OrderItem item) {
         items.add(item);
     }
-
-    public static double calculateTotal(){
+    //calculate total by item
+    public static double calculateTotal() {
         double total = 0;
         for (OrderItem item : items) {
             total += item.getCost();
@@ -24,7 +25,8 @@ public class Order {
         return total;
     }
 
-    public String generateReceipt(){
+    //generate receipt
+    public String generateReceipt() {
         StringBuilder receipt = new StringBuilder();
         receipt.append("--- Receipt ---\n");
         receipt.append("Order Time: ").append(orderDateTime).append("\n\n");

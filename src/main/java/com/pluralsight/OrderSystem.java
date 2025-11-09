@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class OrderSystem {
+    //scanner for input
     static Scanner scanner = new Scanner(System.in);
     static List<OrderItem> currentOrder = new ArrayList<>();
 
 
+    //to loop back to home
     public static void main(String[] args) {
         boolean endProgram = false;
         while (!endProgram) {
             endProgram = homeScreen();
         }
     }
+    //homescreen menu switch case
     public static boolean homeScreen() {
         String options = """
                 WELCOME TO SALADS BY PRINCE
@@ -39,14 +42,18 @@ public class OrderSystem {
         }
         return false;
     }
+
+    //to solve for number choice
     public static int getNumberChoice(String options) {
         System.out.println(options);
         int choice = scanner.nextInt();
         scanner.nextLine();
         return choice;
     }
+
     static String currentReceiptFileName = null;
 
+    //order screen
     public static boolean orderScreen() {
         currentReceiptFileName = "receipt_" + System.currentTimeMillis() + ".csv";
         String options = """
@@ -59,32 +66,34 @@ public class OrderSystem {
                 5) Checkout
                 0) Cancel Order
                 """;
-            switch (getNumberChoice(options)) {
-                case 1:
-                    addSalad();
-                    break;
-                case 2:
-                    addDrink();
-                    break;
-                case 3:
-                    addMainSide();
-                    break;
-                case 4:
-                    addSignatureSalad();
-                    break;
-                case 5:
-                    checkout();
-                    break;
-                case 0:
-                    return true;
-                default:
-                    System.out.println("that's not an option.");
-                    break;
-            }
-            return false;
+        switch (getNumberChoice(options)) {
+            case 1:
+                addSalad();
+                break;
+            case 2:
+                addDrink();
+                break;
+            case 3:
+                addMainSide();
+                break;
+            case 4:
+                addSignatureSalad();
+                break;
+            case 5:
+                checkout();
+                break;
+            case 0:
+                return true;
+            default:
+                System.out.println("that's not an option.");
+                break;
         }
+        return false;
+    }
 
+    //add salad input
     public static boolean addSalad() {
+        // select greens
         System.out.println("Select your green type: 1) Arugula, 2) Spinach, or 3) Lettuce");
         int greenType = scanner.nextInt();
         scanner.nextLine();
@@ -98,6 +107,7 @@ public class OrderSystem {
                 green = GreenType.ARUGULA;
             }
         }
+        //select size
         System.out.println("What size would you like?: " +
                 "1) small\n" +
                 "2) medium\n" +
@@ -114,6 +124,7 @@ public class OrderSystem {
                 saladSize = Size.SMALL;
             }
         }
+        //select meats
         java.util.List<Topping> meatToppings = new java.util.ArrayList<>();
         String meatName;
         int extraMeat;
@@ -137,7 +148,7 @@ public class OrderSystem {
                 }
             }
             meatToppings.add(new MeatTopping(meatName));
-
+        //extra meat?
             extraMeat = 0;
             System.out.println("Add extra meat? yes/no");
             String extra = scanner.nextLine().trim();
@@ -150,6 +161,7 @@ public class OrderSystem {
                 System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
+        //select cheeses (Premium toppings)
         java.util.List<Topping> premiumToppings = new java.util.ArrayList<>();
         String premiumName;
         int extraPremium;
@@ -169,6 +181,8 @@ public class OrderSystem {
                 }
             }
             premiumToppings.add(new PremiumTopping(premiumName));
+
+            //extra premium toppings?
             extraPremium = 0;
             System.out.println("Add extra premium toppings? yes/no");
             String extra = scanner.nextLine().trim();
@@ -181,6 +195,7 @@ public class OrderSystem {
                 System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
+        //select regular toppings
         java.util.List<Topping> regularToppings = new java.util.ArrayList<>();
         String regularName;
         int extraRegular;
@@ -208,6 +223,7 @@ public class OrderSystem {
                 }
             }
             regularToppings.add(new RegularTopping(regularName));
+            //extra regular toppings?
             extraRegular = 0;
             System.out.println("Add extra regular toppings? yes/no");
             String extra = scanner.nextLine().trim();
@@ -220,6 +236,7 @@ public class OrderSystem {
                 System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
+        //select dressing
         java.util.List<Dressing> dressing = new java.util.ArrayList<>();
         String dressingType;
         int extraDressing;
@@ -241,6 +258,8 @@ public class OrderSystem {
                 }
             }
             dressing.add(new Dressing(dressingType));
+
+            //extra dressing?
             extraDressing = 0;
             System.out.println("Add extra dressing? yes/no");
             String extra = scanner.nextLine().trim();
@@ -253,6 +272,7 @@ public class OrderSystem {
                 System.out.println("Not an option! Please type 'yes' or 'no'.");
             }
         }
+        //quinoa specialization?
         int quinoaCount = 0;
         String quinoa;
         while (true) {
@@ -269,6 +289,7 @@ public class OrderSystem {
         }
         List<Topping> toppings = new ArrayList<>();
 
+        //increasing extras count
         for (int i = 0; i < extraMeat; i++) toppings.add(new MeatTopping(meatName));
         for (int i = 0; i < extraPremium; i++) toppings.add(new PremiumTopping(premiumName));
         for (int i = 0; i < extraRegular; i++) toppings.add(new RegularTopping(regularName));
@@ -277,9 +298,11 @@ public class OrderSystem {
 
         Dressing dressing2 = new Dressing(dressingType);
 
+        //add salad to current order
         Salad salad = new Salad(saladSize, green, toppings, dressing2, extraMeat, extraPremium, extraRegular, extraDressing, quinoaCount);
         currentOrder.add(0, salad);
 
+        //checkout input
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
@@ -295,10 +318,11 @@ public class OrderSystem {
 
         }
     }
-
+//add signature salad method
     public static boolean addSignatureSalad() {
         List<Salad> signatureSalads = Salad.getSignatureSalads();
 
+        //choose your signature salad
         System.out.println("Choose a signature salad: ");
         for (int i = 0; i < signatureSalads.size(); i++) {
             System.out.println((i + 1) + ") " + signatureSalads.get(i));
@@ -311,9 +335,11 @@ public class OrderSystem {
             return orderScreen();
         }
 
+        //add salad to current order
         Salad selectedSalad = signatureSalads.get(choice - 1);
         currentOrder.add(0, selectedSalad);
 
+        //ready to check out input
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
@@ -328,9 +354,9 @@ public class OrderSystem {
             }
         }
     }
-
-
+    //add drink method
     public static boolean addDrink() {
+        //select size of drink
         System.out.println("What size would you like?: " +
                 "1) small\n" +
                 "2) medium\n" +
@@ -347,6 +373,7 @@ public class OrderSystem {
                 drinkSize = Size.SMALL;
             }
         }
+        //select flavor of drink
         System.out.println("What flavor drink?: " +
                 "1) Rose Lemonade \n" +
                 "2) Strawberry Lemonade\n" +
@@ -363,9 +390,11 @@ public class OrderSystem {
                 drinkFlavor = "Rose Lemonade";
             }
         }
+        //add drink to current order
         Drink drink2 = new Drink(drinkFlavor, drinkSize);
         currentOrder.add(0, drink2);
 
+        //check out input
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
@@ -382,23 +411,26 @@ public class OrderSystem {
         }
     }
 
+    //add main side method
     public static boolean addMainSide() {
+        //select your main side choice
         System.out.println("What do you want as your main side?: " +
                 "1) sweet potato\n" +
                 "2) roasted tomato \n" +
                 "3) kimchi\n");
         int mainSide = scanner.nextInt();
         scanner.nextLine();
-        Side sideName;
+        String sideName;
         switch (mainSide) {
-            case 1 -> sideName = new Side("Sweet Potato");
-            case 2 -> sideName = new Side ("Roasted Tomato");
-            case 3 -> sideName = new Side ("Kimchi");
+            case 1 -> sideName = "Sweet Potato";
+            case 2 -> sideName = "Roasted Tomato";
+            case 3 -> sideName = "Kimchi";
             default -> {
                 System.out.println("Invalid choice, defaulting to Sweet Potato");
-                sideName = new Side ("Sweet Potato");
+                sideName = "Sweet Potato";
             }
         }
+        //select size of your main side dish
         System.out.println("What size would you like?: " +
                 "1) small\n" +
                 "2) medium\n" +
@@ -415,9 +447,11 @@ public class OrderSystem {
                 sideSize = Size.SMALL;
             }
         }
-        Side side = new Side(sideName, sideSize);
+        //add main side to current order
+        OrderSide side = new OrderSide(sideName, sideSize);
         currentOrder.add(0, side);
 
+        //ready to check out input
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine().trim().toLowerCase();
@@ -434,16 +468,19 @@ public class OrderSystem {
         }
     }
 
+    //check out method + receipt writer
     public static boolean checkout() {
         String receiptOutput = generateReceiptText();
         System.out.println(receiptOutput);
 
+        //order confirmation input
         System.out.println("\nConfirm order? (yes/no): ");
         String choice = scanner.nextLine().trim().toLowerCase();
 
         if (choice.equals("yes")) {
             String receiptFile = "receipt_" + System.currentTimeMillis() + ".csv";
 
+            //receipt writer
             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(receiptFile), StandardCharsets.UTF_8)) {
                 for (OrderItem item : currentOrder) {
                     String line = "";
@@ -468,17 +505,18 @@ public class OrderSystem {
             } catch (IOException e) {
                 System.out.println("Error creating receipt file: " + e.getMessage());
             }
-
+        //clears current order after receipt prints to CLI
             currentOrder.clear();
             return homeScreen();
         } else {
+            //solves for canceling the order + returns to home menu
             System.out.println("Order canceled. Returning to home screen.");
             currentOrder.clear();
             return homeScreen();
         }
     }
 
-
+    //receipt text generator
     public static String generateReceiptText() {
         StringBuilder sb = new StringBuilder();
         double totalPrice = 0;
@@ -488,7 +526,7 @@ public class OrderSystem {
         for (OrderItem item : currentOrder) {
             if (item instanceof Salad salad) {
                 double itemPrice = salad.calculatePrice();
-                sb.append(salad.getGreen())
+                sb.append(salad.getGreen()).append(salad.getDressing())
                         .append(" salad - Size: ").append(salad.getSize())
                         .append(" - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
@@ -498,10 +536,11 @@ public class OrderSystem {
                         .append(drink.getFlavor())
                         .append(" - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
-            } else if (item instanceof Side side) {
+            } else if (item instanceof OrderSide side) {
                 double itemPrice = side.getCost();
                 sb.append(side.getSize()).append(" ")
-                        .append(side.getSide()).append(" side - Price: $").append(itemPrice).append("\n");
+                        .append(side.getSideType())
+                        .append(" side - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
             }
         }
@@ -509,6 +548,5 @@ public class OrderSystem {
         sb.append("Total Price: $").append(totalPrice).append("\n");
         return sb.toString();
     }
-
 
 }

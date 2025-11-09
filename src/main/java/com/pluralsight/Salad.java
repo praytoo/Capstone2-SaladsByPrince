@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Salad implements OrderItem{
+public class Salad implements OrderItem {
     private GreenType green;
     private Size size;
     private List<Topping> toppings;
@@ -81,15 +81,16 @@ public class Salad implements OrderItem{
         return dressing;
     }
 
-    public double calculatePrice(){
-            double price = 0;
+    //calculate price by salad contents
+    public double calculatePrice() {
+        double price = 0;
 
-            // Base price by size
-            switch (size) {
-                case SMALL -> price += 10;
-                case MEDIUM -> price += 12;
-                case LARGE -> price += 15;
-            }
+        // Base price by size
+        switch (size) {
+            case SMALL -> price += 10;
+            case MEDIUM -> price += 12;
+            case LARGE -> price += 15;
+        }
 
         for (Topping topping : toppings) {
             if (topping instanceof MeatTopping) {
@@ -161,39 +162,41 @@ public class Salad implements OrderItem{
         return calculatePrice();
     }
 
-    public Optional<List<Topping>> getToppings2(){
+    //optional method
+    public Optional<List<Topping>> getToppings2() {
         return Optional.ofNullable(toppings);
     }
 
-    public void addTopping(Topping topping){
+    public void addTopping(Topping topping) {
         toppings.add(topping);
     }
 
-    public static List<Salad> getSignatureSalads(){
-    List<Salad> list = new ArrayList<>();
+    //signature salad list
+    public static List<Salad> getSignatureSalads() {
+        List<Salad> list = new ArrayList<>();
 
-    Salad balsamicHoney = new Salad(
-            Size.SMALL,
-            GreenType.ARUGULA,
-            List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins")),
-            new Dressing("Balsamic Vinaigrette and Honey"));
-    list.add(balsamicHoney);
+        Salad balsamicHoney = new Salad(
+                Size.SMALL,
+                GreenType.ARUGULA,
+                List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins")),
+                new Dressing("Balsamic Vinaigrette and Honey"));
+        list.add(balsamicHoney);
 
-    Salad chickenCaesar = new Salad(
-            Size.SMALL,
-            GreenType.LETTUCE,
-            List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons")),
-            new Dressing("Caesar"));
-    list.add(chickenCaesar);
+        Salad chickenCaesar = new Salad(
+                Size.SMALL,
+                GreenType.LETTUCE,
+                List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons")),
+                new Dressing("Caesar"));
+        list.add(chickenCaesar);
 
-    Salad oliveOil = new Salad(
-            Size.SMALL,
-            GreenType.SPINACH,
-            List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado")),
-            new Dressing("Olive oil and Lemon"));
-    list.add(oliveOil);
+        Salad oliveOil = new Salad(
+                Size.SMALL,
+                GreenType.SPINACH,
+                List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado")),
+                new Dressing("Olive oil and Lemon"));
+        list.add(oliveOil);
 
-    return list;
+        return list;
     }
 
     @Override

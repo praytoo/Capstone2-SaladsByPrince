@@ -14,7 +14,7 @@ class OrderTest {
         //arrange
         Order order = new Order();
         Drink drink = new Drink("Rose Lemonade", Size.SMALL);
-        Side side = new Side(new Side ("Sweet Potato"), Size.SMALL);
+        Side side = new Side("Sweet Potato", Size.SMALL);
         double expectedResult = 9.0;
         //act
         order.addItem(drink);

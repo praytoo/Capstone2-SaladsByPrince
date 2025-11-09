@@ -20,11 +20,11 @@ public class Sandwich implements OrderItem {
 
     @Override
     public double getCost() {
-        double base = switch(size) {
-            case SMALL -> 5.00;
-            case MEDIUM -> 7.50;
-            case LARGE -> 9.00;
-            default -> 9.00;
+        double base = switch (size) {
+            case SMALL -> 7.00;
+            case MEDIUM -> 9.50;
+            case LARGE -> 11.00;
+            default -> 0.00;
         };
         if (toasted) base += 0.75;
         for (Topping t : toppings) base += t.getCost(size, false);

@@ -5,7 +5,7 @@ import java.util.Optional;
 import static com.pluralsight.Size.*;
 
 public class Side implements OrderItem {
-    private Side side;
+    private String side;
     private double Price;
     private Size size;
 
@@ -14,28 +14,27 @@ public class Side implements OrderItem {
         return size + " " + side;
     }
 
-    public Side(Side side, Size size) {
+    public Side(String side, Size size) {
         this.side = side;
         this.size = size;
     }
 
     public Side(String side) {
-        //this(side, Size.SMALL);
     }
 
     public Size getSize() {
         return size;
     }
 
-    public Side getSide() {
+    public String getSide() {
         return side;
     }
 
     public double getPrice() {
         return Price;
     }
-
-    public static Optional<Size> getSize2(Size size){
+    //optional method
+    public static Optional<Size> getSize2(Size size) {
         return Optional.ofNullable(size);
     }
 
@@ -43,12 +42,12 @@ public class Side implements OrderItem {
     @Override
     public double getCost() {
         return getSize2(size)
-          .map(s -> switch (s) {
-            case SMALL -> 5.0;
-            case MEDIUM -> 7.5;
-            case LARGE -> 9.0;
-        })
-          .orElse(0.0);
+                .map(s -> switch (s) {
+                    case SMALL -> 5.0;
+                    case MEDIUM -> 7.5;
+                    case LARGE -> 9.0;
+                })
+                .orElse(0.0);
 
     }
 }
