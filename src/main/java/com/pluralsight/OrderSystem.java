@@ -57,7 +57,6 @@ public class OrderSystem {
     public static boolean orderScreen() {
         currentReceiptFileName = "receipt_" + System.currentTimeMillis() + ".csv";
         String options = """
-                Please begin your order:
                 Would you like to...
                 1) Add salad
                 2) Add drink

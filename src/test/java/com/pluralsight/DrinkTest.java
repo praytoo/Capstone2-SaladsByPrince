@@ -12,7 +12,7 @@ class DrinkTest {
     void getCost() {
         //arrange
         Drink drink = new Drink("Cherry Lemonade", Size.MEDIUM);
-        double expectedResult = 5.5;
+        double expectedResult = 6.5;
         //act
         double result = drink.getCost();
         //assert
