@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -124,7 +125,7 @@ public class OrderSystem {
             }
         }
         //select meats
-        java.util.List<Topping> meatToppings = new java.util.ArrayList<>();
+        List<Topping> meatToppings = new ArrayList<>();
         String meatName;
         int extraMeat;
         while (true) {
@@ -161,7 +162,7 @@ public class OrderSystem {
             }
         }
         //select cheeses (Premium toppings)
-        java.util.List<Topping> premiumToppings = new java.util.ArrayList<>();
+        List<Topping> premiumToppings = new ArrayList<>();
         String premiumName;
         int extraPremium;
         while (true) {
@@ -195,7 +196,7 @@ public class OrderSystem {
             }
         }
         //select regular toppings
-        java.util.List<Topping> regularToppings = new java.util.ArrayList<>();
+        List<Topping> regularToppings = new ArrayList<>();
         String regularName;
         int extraRegular;
         while (true) {
@@ -236,7 +237,7 @@ public class OrderSystem {
             }
         }
         //select dressing
-        java.util.List<Dressing> dressing = new java.util.ArrayList<>();
+        List<Dressing> dressing = new ArrayList<>();
         String dressingType;
         int extraDressing;
         while (true) {
@@ -481,51 +482,58 @@ public class OrderSystem {
 
     //check out method + receipt writer
     public static boolean checkout() {
-        String receiptOutput = generateReceiptText();
-        System.out.println(receiptOutput);
-
-        //order confirmation input
-        System.out.println("\nConfirm order? (yes/no): ");
-        String choice = scanner.nextLine().trim().toLowerCase();
-
-        if (choice.equals("yes")) {
-            String receiptFile = "receipt_" + System.currentTimeMillis() + ".csv";
-
-            //receipt writer
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(receiptFile), StandardCharsets.UTF_8)) {
-                for (OrderItem item : currentOrder) {
-                    String line = "";
-                    if (item instanceof Salad salad) {
-                        line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
-                                salad.getDressing() + "," +
-                                salad.getToppings().stream()
-                                        .map(Topping::getName)
-                                        .reduce((a, b) -> a + "/" + b)
-                                        .orElse("");
-                    } else if (item instanceof Drink drink) {
-                        line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
-                    } else if (item instanceof Side side) {
-                        line = "SIDE," + side.getSize() + "," + side.getSide();
-                    }
-                    writer.write(line);
-                    writer.newLine();
-                }
-
-                writer.write("Total Price: " + receiptOutput.substring(receiptOutput.lastIndexOf("$")));
-                System.out.println("\nReceipt saved as: " + receiptFile);
-            } catch (IOException e) {
-                System.out.println("Error creating receipt file: " + e.getMessage());
-            }
-        //clears current order after receipt prints to CLI
-            currentOrder.clear();
-            return homeScreen();
+        //checking if $0.0 is total
+        if (currentOrder.isEmpty()) {
+            System.out.println("Must add a salad, side, or drink!");
         } else {
-            //solves for canceling the order + returns to home menu
-            System.out.println("Order canceled. Returning to home screen.");
-            currentOrder.clear();
-            return homeScreen();
+            String receiptOutput = generateReceiptText();
+            System.out.println(receiptOutput);
+
+            //order confirmation input
+            System.out.println("\nConfirm order? (yes/no): ");
+            String choice = scanner.nextLine().trim().toLowerCase();
+
+            if (choice.equals("yes")) {
+                String receiptFile = "receipt_" + LocalDateTime.now() + ".txt";
+
+                //receipt writer
+                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(receiptFile), StandardCharsets.UTF_8)) {
+                    for (OrderItem item : currentOrder) {
+                        String line = "";
+                        if (item instanceof Salad salad) {
+                            line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
+                                    salad.getDressing() + "," +
+                                    salad.getToppings().stream()
+                                            .map(Topping::getName)
+                                            .reduce((a, b) -> a + "/" + b)
+                                            .orElse("");
+                        } else if (item instanceof Drink drink) {
+                            line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
+                        } else if (item instanceof Side side) {
+                            line = "SIDE," + side.getSize() + "," + side.getSide();
+                        }
+                        writer.write(line);
+                        writer.newLine();
+                    }
+
+                    writer.write("Total Price: " + receiptOutput.substring(receiptOutput.lastIndexOf("$")));
+                    System.out.println("\nReceipt saved as: " + receiptFile);
+                } catch (IOException e) {
+                    System.out.println("Error creating receipt file: " + e.getMessage());
+                }
+                //clears current order after receipt prints to CLI
+                currentOrder.clear();
+                return homeScreen();
+            } else {
+                //solves for canceling the order + returns to home menu
+                System.out.println("Order canceled. Returning to home screen.");
+                currentOrder.clear();
+                return homeScreen();
+            }
         }
+        return false;
     }
+
 
     //receipt text generator
     public static String generateReceiptText() {
