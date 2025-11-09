@@ -1,5 +1,9 @@
 package com.pluralsight;
 
+import java.util.Optional;
+
+import static com.pluralsight.Size.*;
+
 public class Drink implements OrderItem{
     private String flavor;
     private Size size;
@@ -13,17 +17,23 @@ public class Drink implements OrderItem{
         return flavor;
     }
 
+    public static Optional<Size> getSize2(Size size){
+        return Optional.ofNullable(size);
+    }
+
     public Size getSize() {
         return size;
     }
 
     @Override
     public double getCost() {
-        return switch(size) {
-            case SMALL -> 4.0;
-            case MEDIUM -> 5.5;
-            case LARGE -> 6.0;
-            default -> throw new IllegalStateException("Unexpected value: " + size);
-        };
+        return getSize2(size)
+                .map(s -> switch (s) {
+                    case SMALL -> 4.0;
+                    case MEDIUM -> 5.5;
+                    case LARGE -> 6.0;
+                })
+                .orElse(0.0);
+
     }
 }

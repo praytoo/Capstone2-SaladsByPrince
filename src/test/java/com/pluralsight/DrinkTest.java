@@ -14,7 +14,18 @@ class DrinkTest {
         Drink drink = new Drink("Cherry Lemonade", Size.MEDIUM);
         double expectedResult = 5.5;
         //act
-        drink.getSize();
+        double result = drink.getCost();
+        //assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Get Null Cost for Drink Accuracy")
+    void getNullFlavorAndSize() {
+        //arrange
+        Drink drink = new Drink(null, null);
+        double expectedResult = 0.0;
+        //act
         double result = drink.getCost();
         //assert
         assertEquals(expectedResult, result);

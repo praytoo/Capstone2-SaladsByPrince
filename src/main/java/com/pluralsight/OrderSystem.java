@@ -434,10 +434,6 @@ public class OrderSystem {
         }
     }
 
-    public static Side createMainSide(Side sideName, Size size) {
-        return new Side(sideName, size);
-    }
-
     public static boolean checkout() {
         String receiptOutput = generateReceiptText();
         System.out.println(receiptOutput);

@@ -14,7 +14,18 @@ class SideTest {
         Side side = new Side(new Side ("Sweet Potato"), Size.SMALL);
         double expectedResult = 5;
         //act
-        side.getSize();
+        double result = side.getCost();
+        //assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Get Null Cost for Side Accuracy")
+    void getNullCost() {
+        //arrange
+        Side side = new Side(new Side ("Sweet Potato"), null);
+        double expectedResult = 0.0;
+        //act
         double result = side.getCost();
         //assert
         assertEquals(expectedResult, result);

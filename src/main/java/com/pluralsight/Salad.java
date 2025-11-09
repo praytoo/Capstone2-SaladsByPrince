@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Salad implements OrderItem{
     private GreenType green;
@@ -158,6 +159,10 @@ public class Salad implements OrderItem{
     @Override
     public double getCost() {
         return calculatePrice();
+    }
+
+    public Optional<List<Topping>> getToppings2(){
+        return Optional.ofNullable(toppings);
     }
 
     public void addTopping(Topping topping){

@@ -3,6 +3,8 @@ package com.pluralsight;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaladTest {
@@ -17,5 +19,15 @@ class SaladTest {
         double result = salad.getCost();
         //assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Get Empty Toppings for Salad Accuracy")
+    void getEmptyToppings() {
+        //arrange
+        Salad salad = new Salad(Size.SMALL, GreenType.ARUGULA, null, new Dressing("Caesar"));
+        //act
+        //assert
+        assertTrue(salad.getToppings2().isEmpty());
     }
 }
