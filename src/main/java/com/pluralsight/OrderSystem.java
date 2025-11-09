@@ -307,10 +307,13 @@ public class OrderSystem {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
             if (checkout.equalsIgnoreCase("yes")) {
+                System.out.println("Checking out...");
                 return checkout();
             } else if (checkout.equalsIgnoreCase("no")) {
+                System.out.println("Add more items to your order...");
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
+                System.out.println("Order canceled. Returning to home screen.");
                 return false;
             } else {
                 System.out.println("not an option!");
@@ -344,10 +347,13 @@ public class OrderSystem {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
             if (checkout.equalsIgnoreCase("yes")) {
+                System.out.println("Checking out...");
                 return checkout();
             } else if (checkout.equalsIgnoreCase("no")) {
+                System.out.println("Add more items to your order...");
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
+                System.out.println("Order canceled. Returning to home screen.");
                 return false;
             } else {
                 System.out.println("Not an option!");
@@ -399,10 +405,13 @@ public class OrderSystem {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
             if (checkout.equalsIgnoreCase("yes")) {
+                System.out.println("Checking out...");
                 return checkout();
             } else if (checkout.equalsIgnoreCase("no")) {
+                System.out.println("Add more items to your order...");
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
+                System.out.println("Order canceled. Returning to home screen.");
                 return homeScreen();
             } else {
                 System.out.println("not an option!");
@@ -456,10 +465,13 @@ public class OrderSystem {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine().trim().toLowerCase();
             if (checkout.equalsIgnoreCase("yes")) {
+                System.out.println("Checking out...");
                 return checkout();
             } else if (checkout.equalsIgnoreCase("no")) {
+                System.out.println("Add more items to your order...");
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
+                System.out.println("Order canceled. Returning to home screen.");
                 return false;
             } else {
                 System.out.println("not an option!");
@@ -526,7 +538,7 @@ public class OrderSystem {
         for (OrderItem item : currentOrder) {
             if (item instanceof Salad salad) {
                 double itemPrice = salad.calculatePrice();
-                sb.append(salad.getGreen()).append(salad.getDressing())
+                sb.append(salad.getGreen())
                         .append(" salad - Size: ").append(salad.getSize())
                         .append(" - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
