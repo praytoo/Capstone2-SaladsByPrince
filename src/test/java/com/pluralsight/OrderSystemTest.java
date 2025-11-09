@@ -27,6 +27,7 @@ class OrderSystemTest {
         OrderSystem.scanner = new java.util.Scanner(System.in);
     }
     @Test
+    @DisplayName("Check For Salad Greens Accuracy")
     void addSalad() {
         //arrange
         String input = """
