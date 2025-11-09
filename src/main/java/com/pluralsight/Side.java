@@ -1,22 +1,29 @@
 package com.pluralsight;
 
-import static com.pluralsight.Size.*;
-
 public class Side implements OrderItem {
-    private String side;
+    private Side side;
     private double Price;
     private Size size;
 
-    public Side(String side, Size size) {
+    @Override
+    public String toString() {
+        return size + " " + side;
+    }
+
+    public Side(Side side, Size size) {
         this.side = side;
         this.size = size;
+    }
+
+    public Side(String side) {
+        //this(side, Size.SMALL);
     }
 
     public Size getSize() {
         return size;
     }
 
-    public String getSide() {
+    public Side getSide() {
         return side;
     }
 

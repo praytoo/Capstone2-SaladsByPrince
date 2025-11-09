@@ -2,15 +2,9 @@ package com.pluralsight;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -294,7 +288,7 @@ public class OrderSystem {
             } else if (checkout.equalsIgnoreCase("no")) {
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
-                return homeScreen();
+                return false;
             } else {
                 System.out.println("not an option!");
             }
@@ -328,7 +322,7 @@ public class OrderSystem {
             } else if (checkout.equalsIgnoreCase("no")) {
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
-                return homeScreen();
+                return false;
             } else {
                 System.out.println("Not an option!");
             }
@@ -369,8 +363,8 @@ public class OrderSystem {
                 drinkFlavor = "Rose Lemonade";
             }
         }
-        Drink drink = new Drink(drinkFlavor, drinkSize);
-        currentOrder.add(0, drink);
+        Drink drink2 = new Drink(drinkFlavor, drinkSize);
+        currentOrder.add(0, drink2);
 
         while (true) {
             System.out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
@@ -395,14 +389,14 @@ public class OrderSystem {
                 "3) kimchi\n");
         int mainSide = scanner.nextInt();
         scanner.nextLine();
-        String sideName;
+        Side sideName;
         switch (mainSide) {
-            case 1 -> sideName = "Sweet Potato";
-            case 2 -> sideName = "Roasted Tomato";
-            case 3 -> sideName = "Kimchi";
+            case 1 -> sideName = new Side("Sweet Potato");
+            case 2 -> sideName = new Side ("Roasted Tomato");
+            case 3 -> sideName = new Side ("Kimchi");
             default -> {
                 System.out.println("Invalid choice, defaulting to Sweet Potato");
-                sideName = "Sweet Potato";
+                sideName = new Side ("Sweet Potato");
             }
         }
         System.out.println("What size would you like?: " +
@@ -432,7 +426,7 @@ public class OrderSystem {
             } else if (checkout.equalsIgnoreCase("no")) {
                 return orderScreen();
             } else if (checkout.equalsIgnoreCase("cancel")) {
-                return homeScreen();
+                return false;
             } else {
                 System.out.println("not an option!");
             }
@@ -440,34 +434,20 @@ public class OrderSystem {
         }
     }
 
+    public static Side createMainSide(Side sideName, Size size) {
+        return new Side(sideName, size);
+    }
+
     public static boolean checkout() {
-        System.out.println("\n--- Your Order ---");
-        double totalPrice = 0;
+        String receiptOutput = generateReceiptText();
+        System.out.println(receiptOutput);
 
-        // Print each item and calculate total price
-        for (OrderItem item : currentOrder) {
-            if (item instanceof Salad salad) {
-                double itemPrice = salad.calculatePrice();
-                System.out.println(salad.getGreen() + " salad - Size: " + salad.getSize() + " - Price: $" + itemPrice);
-                totalPrice += itemPrice;
-            } else if (item instanceof Drink drink) {
-                double itemPrice = drink.getCost();
-                System.out.println(drink.getSize() + " " + drink.getFlavor() + " - Price: $" + itemPrice);
-                totalPrice += itemPrice;
-            } else if (item instanceof Side side) {
-                double itemPrice = side.getCost();
-                System.out.println(side.getSize() + " " + side.getSide() + " side - Price: $" + itemPrice);
-                totalPrice += itemPrice;
-            }
-        }
-
-        System.out.println("Total Price: $" + totalPrice);
         System.out.println("\nConfirm order? (yes/no): ");
         String choice = scanner.nextLine().trim().toLowerCase();
 
         if (choice.equals("yes")) {
-            // Write receipt CSV
             String receiptFile = "receipt_" + System.currentTimeMillis() + ".csv";
+
             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(receiptFile), StandardCharsets.UTF_8)) {
                 for (OrderItem item : currentOrder) {
                     String line = "";
@@ -475,31 +455,64 @@ public class OrderSystem {
                         line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
                                 salad.getDressing() + "," +
                                 salad.getToppings().stream()
-                                        .map(t -> t.getName())
+                                        .map(Topping::getName)
                                         .reduce((a, b) -> a + "/" + b)
                                         .orElse("");
                     } else if (item instanceof Drink drink) {
-                        line = "DRINK," + drink.getSize() + ", " + drink.getFlavor();
+                        line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
                     } else if (item instanceof Side side) {
-                        line = "SIDE," + side.getSize() + ", " + side.getSide();
+                        line = "SIDE," + side.getSize() + "," + side.getSide();
                     }
                     writer.write(line);
                     writer.newLine();
                 }
-                writer.write("Total Price: $" + totalPrice);
+
+                writer.write("Total Price: " + receiptOutput.substring(receiptOutput.lastIndexOf("$")));
                 System.out.println("\nReceipt saved as: " + receiptFile);
             } catch (IOException e) {
                 System.out.println("Error creating receipt file: " + e.getMessage());
             }
 
             currentOrder.clear();
-            return homeScreen(); // return to home screen
-
+            return homeScreen();
         } else {
             System.out.println("Order canceled. Returning to home screen.");
             currentOrder.clear();
             return homeScreen();
         }
     }
+
+
+    public static String generateReceiptText() {
+        StringBuilder sb = new StringBuilder();
+        double totalPrice = 0;
+
+        sb.append("\n--- Your Order ---\n");
+
+        for (OrderItem item : currentOrder) {
+            if (item instanceof Salad salad) {
+                double itemPrice = salad.calculatePrice();
+                sb.append(salad.getGreen())
+                        .append(" salad - Size: ").append(salad.getSize())
+                        .append(" - Price: $").append(itemPrice).append("\n");
+                totalPrice += itemPrice;
+            } else if (item instanceof Drink drink) {
+                double itemPrice = drink.getCost();
+                sb.append(drink.getSize()).append(" ")
+                        .append(drink.getFlavor())
+                        .append(" - Price: $").append(itemPrice).append("\n");
+                totalPrice += itemPrice;
+            } else if (item instanceof Side side) {
+                double itemPrice = side.getCost();
+                sb.append(side.getSize()).append(" ")
+                        .append(side.getSide()).append(" side - Price: $").append(itemPrice).append("\n");
+                totalPrice += itemPrice;
+            }
+        }
+
+        sb.append("Total Price: $").append(totalPrice).append("\n");
+        return sb.toString();
+    }
+
 
 }

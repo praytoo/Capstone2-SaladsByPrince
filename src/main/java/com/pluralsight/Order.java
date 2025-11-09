@@ -1,10 +1,11 @@
 package com.pluralsight;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<OrderItem> items;
+    private static List<OrderItem> items = new ArrayList<>();;
     private LocalDateTime orderDateTime;
 
     public List<OrderItem> getItems() {
@@ -15,7 +16,7 @@ public class Order {
         items.add(item);
     }
 
-    public double calculateTotal(){
+    public static double calculateTotal(){
         double total = 0;
         for (OrderItem item : items) {
             total += item.getCost();
