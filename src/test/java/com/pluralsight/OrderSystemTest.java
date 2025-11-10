@@ -1,7 +1,9 @@
 package com.pluralsight;
 
 import com.pluralsight.controller.OrderSystem;
+import com.pluralsight.controller.ReceiptWriter;
 import com.pluralsight.fooditem.Salad;
+import com.pluralsight.order.OrderSalad;
 import com.pluralsight.toppings.Size;
 import org.junit.jupiter.api.*;
 import java.io.*;
@@ -51,7 +53,7 @@ class OrderSystemTest {
         OrderSystem.scanner = new Scanner(System.in);
 
         //act
-        OrderSystem.addSalad();
+        OrderSalad.addSalad();
 
         //assert
         assertEquals(1, OrderSystem.currentOrder.size());
@@ -67,7 +69,7 @@ class OrderSystemTest {
         //arrange
         String expectedResult = "\n--- Your Order ---\n" + "Total Price: $0.0\n";
         //act
-        String result = OrderSystem.generateReceiptText();
+        String result = ReceiptWriter.generateReceiptText();
         //assert
         assertEquals(expectedResult, result);
     }
@@ -82,7 +84,7 @@ class OrderSystemTest {
         var out = new PrintStream(output);
         boolean input2 = input.equals("no");
         //act
-        boolean result = OrderSystem.checkout(scanner, out, "no");
+        boolean result = ReceiptWriter.checkout(scanner, out, "no");
         //assert
         assertEquals(input2, result);
         //String text = output.toString(StandardCharsets.UTF_8);
