@@ -306,6 +306,15 @@ public class OrderSystem {
         for (int i = 0; i < extraRegular; i++) toppings.add(new RegularTopping(regularName));
         for (int i = 0; i < extraDressing; i++) dressing.add(new com.pluralsight.toppings.Dressing(dressingType));
         for (int i = 0; i < quinoaCount; i++) toppings.add(new QuinoaTopping("Quinoa"));
+        for (Topping t : meatToppings){
+            toppings.add(t);
+        }
+        for (Topping t : premiumToppings){
+            toppings.add(t);
+        }
+        for (Topping t : regularToppings){
+            toppings.add(t);
+        }
 
         com.pluralsight.toppings.Dressing dressing2 = new com.pluralsight.toppings.Dressing(dressingType);
 
