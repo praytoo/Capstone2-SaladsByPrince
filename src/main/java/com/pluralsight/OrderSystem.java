@@ -24,6 +24,7 @@ public class OrderSystem {
         while (!endProgram) {
             endProgram = homeScreen();
         }
+        scanner.close();
     }
     //homescreen menu switch case
     public static boolean homeScreen() {
