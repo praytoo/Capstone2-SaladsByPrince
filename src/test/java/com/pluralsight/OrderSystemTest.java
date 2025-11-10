@@ -3,6 +3,7 @@ package com.pluralsight;
 import org.junit.jupiter.api.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static com.pluralsight.Size.SMALL;
@@ -68,5 +69,20 @@ class OrderSystemTest {
         String result = OrderSystem.generateReceiptText();
         //assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("User Doesn't Confirm Order")
+    void readsValidOnFirstTry() {
+        var input = new ByteArrayInputStream("no\n".getBytes(StandardCharsets.UTF_8));
+        var scanner = new Scanner(input);
+        var output = new ByteArrayOutputStream();
+        var out = new PrintStream(output);
+
+        boolean result = OrderSystem.checkout(scanner, out, "no");
+
+        assertEquals(input, result);
+        String text = output.toString(StandardCharsets.UTF_8);
+        assertTrue(text.contains("Order canceled. Returning to home screen."));
     }
 }
