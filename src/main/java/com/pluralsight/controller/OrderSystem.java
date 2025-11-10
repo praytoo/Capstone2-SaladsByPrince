@@ -1,12 +1,20 @@
-package com.pluralsight;
+package com.pluralsight.controller;
 
+import com.pluralsight.fooditem.Drink;
+import com.pluralsight.fooditem.Salad;
+import com.pluralsight.fooditem.Side;
+import com.pluralsight.order.OrderItem;
+import com.pluralsight.order.OrderSide;
+import com.pluralsight.toppings.*;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.lang.System.in;
@@ -14,8 +22,8 @@ import static java.lang.System.out;
 
 public class OrderSystem {
     //scanner for input
-    static Scanner scanner = new Scanner(in);
-    static List<OrderItem> currentOrder = new ArrayList<>();
+    public static Scanner scanner = new Scanner(in);
+    public static List<OrderItem> currentOrder = new ArrayList<>();
 
 
     //to loop back to home
@@ -240,7 +248,7 @@ public class OrderSystem {
             }
         }
         //select dressing
-        List<Dressing> dressing = new ArrayList<>();
+        List<com.pluralsight.toppings.Dressing> dressing = new ArrayList<>();
         String dressingType;
         int extraDressing;
         while (true) {
@@ -260,7 +268,7 @@ public class OrderSystem {
                     dressingType = "Balsamic Vinaigrette and Honey";
                 }
             }
-            dressing.add(new Dressing(dressingType));
+            dressing.add(new com.pluralsight.toppings.Dressing(dressingType));
 
             //extra dressing?
             extraDressing = 0;
@@ -296,10 +304,10 @@ public class OrderSystem {
         for (int i = 0; i < extraMeat; i++) toppings.add(new MeatTopping(meatName));
         for (int i = 0; i < extraPremium; i++) toppings.add(new PremiumTopping(premiumName));
         for (int i = 0; i < extraRegular; i++) toppings.add(new RegularTopping(regularName));
-        for (int i = 0; i < extraDressing; i++) dressing.add(new Dressing(dressingType));
+        for (int i = 0; i < extraDressing; i++) dressing.add(new com.pluralsight.toppings.Dressing(dressingType));
         for (int i = 0; i < quinoaCount; i++) toppings.add(new QuinoaTopping("Quinoa"));
 
-        Dressing dressing2 = new Dressing(dressingType);
+        com.pluralsight.toppings.Dressing dressing2 = new com.pluralsight.toppings.Dressing(dressingType);
 
         //add salad to current order
         Salad salad = new Salad(saladSize, green, toppings, dressing2, extraMeat, extraPremium, extraRegular, extraDressing, quinoaCount);
@@ -552,33 +560,40 @@ public class OrderSystem {
             System.out.println("\nConfirm order? (yes/no): ");
             choice = scanner.nextLine().trim().toLowerCase();
 
+            //receipt writer
             if (choice.equals("yes")) {
-                String receiptFile = "receipt_" + LocalDateTime.now() + ".txt";
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+                String receiptFile = "receipt_" + timestamp + ".txt";
 
-                //receipt writer
-                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(receiptFile), StandardCharsets.UTF_8)) {
-                    for (OrderItem item : currentOrder) {
-                        String line = "";
-                        if (item instanceof Salad salad) {
-                            line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
-                                    salad.getDressing() + "," +
-                                    salad.getToppings().stream()
-                                            .map(Topping::getName)
-                                            .reduce((a, b) -> a + "/" + b)
-                                            .orElse("");
-                        } else if (item instanceof Drink drink) {
-                            line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
-                        } else if (item instanceof Side side) {
-                            line = "SIDE," + side.getSize() + "," + side.getSide();
+                try {
+                    Files.createDirectories(Paths.get("receipts"));
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("receipts/" + receiptFile), StandardCharsets.UTF_8)) {
+                        for (OrderItem item : currentOrder) {
+                            String line = "";
+                            if (item instanceof Salad salad) {
+                                line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
+                                        salad.getDressing() + "," +
+                                        salad.getToppings().stream()
+                                                .map(Topping::getName)
+                                                .reduce((a, b) -> a + "/" + b)
+                                                .orElse("");
+                            } else if (item instanceof Drink drink) {
+                                line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
+                            } else if (item instanceof Side side) {
+                                line = "SIDE," + side.getSize() + "," + side.getSide();
+                            }
+                            writer.write(line);
+                            writer.newLine();
                         }
-                        writer.write(line);
-                        writer.newLine();
-                    }
 
-                    writer.write("Total Price: " + receiptOutput.substring(receiptOutput.lastIndexOf("$")));
-                    System.out.println("\nReceipt saved as: " + receiptFile);
+                        writer.write("Total Price: " + receiptOutput.substring(receiptOutput.lastIndexOf("$")));
+                        System.out.println("\nReceipt saved as: " + receiptFile);
+                    } catch (IOException e) {
+                        System.out.println("Error creating receipt file: " + e.getMessage());
+                    }
                 } catch (IOException e) {
-                    System.out.println("Error creating receipt file: " + e.getMessage());
+                    System.out.println("Failed to create receipts directory.");
+                    return homeScreen();
                 }
                 //clears current order after receipt prints to CLI
                 currentOrder.clear();

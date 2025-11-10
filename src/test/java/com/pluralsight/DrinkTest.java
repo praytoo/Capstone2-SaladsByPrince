@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.fooditem.Drink;
+import com.pluralsight.toppings.Size;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

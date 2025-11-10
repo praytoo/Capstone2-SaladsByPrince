@@ -1,7 +1,12 @@
-package com.pluralsight;
+package com.pluralsight.fooditem;
+
+import com.pluralsight.toppings.Dressing;
+import com.pluralsight.toppings.GreenType;
+import com.pluralsight.order.OrderItem;
+import com.pluralsight.toppings.Size;
+import com.pluralsight.toppings.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +14,7 @@ public class Salad implements OrderItem {
     private GreenType green;
     private Size size;
     private List<Topping> toppings;
-    private Dressing dressing;
+    protected Dressing dressing;
     private String meatName;
     private int extraMeat;
     private String premiumName;

@@ -1,2 +1,0 @@
-SALAD,SPINACH,SMALL,com.pluralsight.Dressing@20ad9418,Avocado
-Total Price: $11.0

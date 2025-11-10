@@ -1,8 +1,9 @@
-package com.pluralsight;
+package com.pluralsight.fooditem;
+
+import com.pluralsight.order.OrderItem;
+import com.pluralsight.toppings.Size;
 
 import java.util.Optional;
-
-import static com.pluralsight.Size.*;
 
 public class Drink implements OrderItem {
     private String flavor;

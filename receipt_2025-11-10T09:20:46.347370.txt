@@ -1,4 +1,0 @@
-DRINK,MEDIUM,Strawberry Lemonade
-
-SALAD,SPINACH,SMALL,com.pluralsight.Dressing@5010be6,Tuna/Avocado
-Total Price: $26.5

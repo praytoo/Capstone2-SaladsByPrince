@@ -1,6 +1,9 @@
 package com.pluralsight;
 
-import com.pluralsight.foodCourt.OrderItem;
+import com.pluralsight.fooditem.Drink;
+import com.pluralsight.fooditem.Side;
+import com.pluralsight.order.Order;
+import com.pluralsight.toppings.Size;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

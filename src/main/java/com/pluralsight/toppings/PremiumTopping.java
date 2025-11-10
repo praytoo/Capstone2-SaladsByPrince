@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.toppings;
 
 public class PremiumTopping extends Topping {
     private double extraCostSmall;

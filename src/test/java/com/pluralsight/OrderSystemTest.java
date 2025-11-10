@@ -1,12 +1,13 @@
 package com.pluralsight;
 
+import com.pluralsight.controller.OrderSystem;
+import com.pluralsight.fooditem.Salad;
+import com.pluralsight.toppings.Size;
 import org.junit.jupiter.api.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import static com.pluralsight.Size.SMALL;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderSystemTest {

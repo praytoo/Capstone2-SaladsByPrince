@@ -1,4 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.order;
+
+import com.pluralsight.toppings.Size;
 
 public class OrderSide implements OrderItem {
     private String sideType;

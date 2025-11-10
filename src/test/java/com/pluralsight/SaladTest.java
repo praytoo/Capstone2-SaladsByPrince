@@ -1,9 +1,11 @@
 package com.pluralsight;
 
+import com.pluralsight.fooditem.Salad;
+import com.pluralsight.toppings.Dressing;
+import com.pluralsight.toppings.GreenType;
+import com.pluralsight.toppings.Size;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
