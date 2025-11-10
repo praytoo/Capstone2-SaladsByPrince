@@ -1,0 +1,5 @@
+SALAD,SPINACH,MEDIUM,com.pluralsight.toppings.Dressing@31221be2,Tuna/Brie/Raisins
+DRINK,MEDIUM,Strawberry Lemonade
+
+SALAD,SPINACH,SMALL,com.pluralsight.toppings.Dressing@5910e440,Tuna/Avocado
+Total Price: $46.5
