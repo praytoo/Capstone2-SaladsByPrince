@@ -1,0 +1,2 @@
+SALAD,SPINACH,SMALL,com.pluralsight.Dressing@439f5b3d,Tuna/Avocado
+Total Price: $12.5
