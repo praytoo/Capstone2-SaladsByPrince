@@ -13,6 +13,7 @@ public class Side implements OrderItem {
     public double getCost() {
         return price;
     }
+
     @Override
     public String getDisplayName() {
         return name;

@@ -4,6 +4,7 @@ import com.pluralsight.foodCourt.PremiumTopping;
 import com.pluralsight.foodCourt.RegularTopping;
 import com.pluralsight.foodCourt.Topping;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class ToppingService {
                 new PremiumTopping("Goat Cheese")
         );
     }
+
     public static final List<Topping> toppings = List.of(
             new Topping(Category.SALAD, false, "Croutons"),
             new Topping(Category.SALAD, false, "Raisins"),
@@ -93,7 +95,7 @@ public class ToppingService {
             new Topping(Category.TACO, true, "Pork"),
             new Topping(Category.TACO, true, "Mozzarella"),
             new Topping(Category.TACO, true, "Ricotta")
-            );
+    );
 
     public List<Topping> getPizzaToppings() {
         return toppings.stream()

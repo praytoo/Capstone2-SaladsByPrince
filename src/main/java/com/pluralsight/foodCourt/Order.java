@@ -11,14 +11,17 @@ public class Order {
     public void addItem(OrderItem item) {
         items.add(0, item);
     } // newest first
+
     public List<OrderItem> getItems() {
         return items;
     }
+
     public double calculateTotal() {
         return items.stream()
                 .mapToDouble(OrderItem::getCost)
                 .sum();
     }
+
     public LocalDateTime getCreated() {
         return created;
     }

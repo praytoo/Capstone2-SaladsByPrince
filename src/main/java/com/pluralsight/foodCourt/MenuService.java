@@ -17,6 +17,7 @@ public class MenuService {
     public List<MenuItem> getAllItems() {
         return new ArrayList<>(menuItems); // return a copy
     }
+
     public void addItem(MenuItem item) {
         menuItems.add(item);
     }

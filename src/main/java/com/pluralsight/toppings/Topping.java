@@ -1,6 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.toppings;
 
-public abstract class Topping {
+public class Topping {
     private String name;
 
     public String getName() {

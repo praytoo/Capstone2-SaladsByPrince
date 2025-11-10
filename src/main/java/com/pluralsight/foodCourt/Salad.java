@@ -2,6 +2,7 @@ package com.pluralsight.foodCourt;
 
 import com.pluralsight.foodCourt.GreenType;
 import com.pluralsight.foodCourt.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +25,33 @@ public class Salad implements OrderItem {
         this(size, green, null, dressing);
     }
 
-    public void addTopping(Topping t) { toppings.add(t); }
-    public Size getSize() { return size; }
-    public GreenType getGreen() { return green; }
-    public List<Topping> getToppings() { return toppings; }
-    public Dressing getDressing() { return dressing; }
+    public void addTopping(Topping t) {
+        toppings.add(t);
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public GreenType getGreen() {
+        return green;
+    }
+
+    public List<Topping> getToppings() {
+        return toppings;
+    }
+
+    public Dressing getDressing() {
+        return dressing;
+    }
 
     @Override
     public double getCost() {
-        double cost = switch(size) {
-            case SMALL -> 3.50;
-            case MEDIUM -> 8.50;
-            default -> 9.00;
+        double cost = switch (size) {
+            case SMALL -> 10.00;
+            case MEDIUM -> 12.50;
+            case LARGE -> 15.00;
+            default -> 0.00;
         };
         for (Topping t : toppings) {
             if (t instanceof PremiumTopping) {

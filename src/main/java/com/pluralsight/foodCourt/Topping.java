@@ -44,7 +44,7 @@ public class Topping {
     }
 
     public double getCost(Size size, boolean extra) {
-        double base = switch(size) {
+        double base = switch (size) {
             case SMALL -> priceSmall;
             case MEDIUM -> priceMedium;
             default -> priceLarge;
@@ -52,6 +52,8 @@ public class Topping {
         return base;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 }
 

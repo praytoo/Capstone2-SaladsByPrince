@@ -1,13 +1,20 @@
-package com.pluralsight;
+package com.pluralsight.fooditem;
+
+import com.pluralsight.toppings.Dressing;
+import com.pluralsight.toppings.GreenType;
+import com.pluralsight.order.OrderItem;
+import com.pluralsight.toppings.Size;
+import com.pluralsight.toppings.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class Salad implements OrderItem{
+public class Salad implements OrderItem {
     private GreenType green;
     private Size size;
     private List<Topping> toppings;
-    private Dressing dressing;
+    protected Dressing dressing;
     private String meatName;
     private int extraMeat;
     private String premiumName;
@@ -55,6 +62,9 @@ public class Salad implements OrderItem{
         this.quinoaCount = quinoaCount;
     }
 
+    public Salad(String regularName) {
+    }
+
 
     public void setDressing(Dressing dressing) {
         this.dressing = dressing;
@@ -80,15 +90,16 @@ public class Salad implements OrderItem{
         return dressing;
     }
 
-    public double calculatePrice(){
-            double price = 0;
+    //calculate price by salad contents
+    public double calculatePrice() {
+        double price = 0;
 
-            // Base price by size
-            switch (size) {
-                case SMALL -> price += 10;
-                case MEDIUM -> price += 12;
-                case LARGE -> price += 15;
-            }
+        // Base price by size
+        switch (size) {
+            case SMALL -> price += 10;
+            case MEDIUM -> price += 12;
+            case LARGE -> price += 15;
+        }
 
         for (Topping topping : toppings) {
             if (topping instanceof MeatTopping) {
@@ -160,35 +171,41 @@ public class Salad implements OrderItem{
         return calculatePrice();
     }
 
-    public void addTopping(Topping topping){
+    //optional method
+    public Optional<List<Topping>> getToppings2() {
+        return Optional.ofNullable(toppings);
+    }
+
+    public void addTopping(Topping topping) {
         toppings.add(topping);
     }
 
-    public static List<Salad> getSignatureSalads(){
-    List<Salad> list = new ArrayList<>();
+    //signature salad list
+    public static List<Salad> getSignatureSalads() {
+        List<Salad> list = new ArrayList<>();
 
-    Salad balsamicHoney = new Salad(
-            Size.SMALL,
-            GreenType.ARUGULA,
-            List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins")),
-            new Dressing("Balsamic Vinaigrette and Honey"));
-    list.add(balsamicHoney);
+        Salad balsamicHoney = new Salad(
+                Size.SMALL,
+                GreenType.ARUGULA,
+                new ArrayList<>(List.of(new PremiumTopping("Beef"), new RegularTopping("Raisins"))),
+                new Dressing("Balsamic Vinaigrette and Honey"));
+        list.add(balsamicHoney);
 
-    Salad chickenCaesar = new Salad(
-            Size.SMALL,
-            GreenType.LETTUCE,
-            List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons")),
-            new Dressing("Caesar"));
-    list.add(chickenCaesar);
+        Salad chickenCaesar = new Salad(
+                Size.SMALL,
+                GreenType.LETTUCE,
+                new ArrayList<>(List.of(new PremiumTopping("Chicken"), new RegularTopping("Croutons"))),
+                new Dressing("Caesar"));
+        list.add(chickenCaesar);
 
-    Salad oliveOil = new Salad(
-            Size.SMALL,
-            GreenType.SPINACH,
-            List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado")),
-            new Dressing("Olive oil and Lemon"));
-    list.add(oliveOil);
+        Salad oliveOil = new Salad(
+                Size.SMALL,
+                GreenType.SPINACH,
+                new ArrayList<>(List.of(new PremiumTopping("Tuna"), new RegularTopping("Avocado"))),
+                new Dressing("Olive oil and Lemon"));
+        list.add(oliveOil);
 
-    return list;
+        return list;
     }
 
     @Override

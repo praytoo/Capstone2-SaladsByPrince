@@ -20,7 +20,7 @@ public class Pizza implements OrderItem {
 
     @Override
     public double getCost() {
-        double base = switch(size) {
+        double base = switch (size) {
             case SMALL -> 6.00;
             case MEDIUM -> 9.00;
             case LARGE -> 12.00;

@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.toppings;
 
 public class Dressing {
     private String name;
