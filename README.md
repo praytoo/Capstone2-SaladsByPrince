@@ -253,6 +253,7 @@ See the [LICENSE](#LICENSE) file for details.
 
 **Prince Haywood**
 📍 Playa Vista, California
+
 👨‍💻 LinkedIn https://www.linkedin.com/in/princehaywood/
 
 ## References
