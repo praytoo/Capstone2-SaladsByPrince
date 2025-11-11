@@ -106,10 +106,10 @@ http://localhost:8080
 ## 🖼️ Screenshots 
 
 Console Menu:
-![console](images/console.png)
+![CLI](images/CLI.gif)
 
 Web Menu:
-![webapp](images/web-menu.png)
+![WebApp](images/WebApp.gif)
 
 ---
 
