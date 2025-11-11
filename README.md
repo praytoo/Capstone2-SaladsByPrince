@@ -11,21 +11,21 @@ Includes:
 
 ## 📚 Table of Contents
 
-* [⚙️ Features](#-features)
-* [🧩 How-It-Works-Console-App](#-how-it-works-console-app)
-* [🧩 How-It-Works-Web-App](#-how-it-works-princes-food-court-web-app)
-* [📊 Class Diagram Overview](#-class-diagram-overview)
-* [📦 Installation/Run Instructions](#-installationrun-instructions)
-* [💻 Screen Gifs](#-screen-gifs-)
-* [💡 Interesting Code Snippet](#-interesting-code-snippet)
-* [🧪 Test Reports](#-test-reports-junit)
-* [📜 License](#-license)
-* [👤 Author](#-author)
-* [📚 References](#-references)
+* [⚙️ Features](#features)
+* [🧩 How-It-Works-Console-App](#how-it-works-console-app)
+* [🧠 How-It-Works-Web-App](#how-it-works-princes-food-court-web-app)
+* [📊 Class Diagram Overview](#class-diagram-overview)
+* [📦 Installation/Run Instructions](#installationrun-instructions)
+* [💻 Screen Gifs](#screen-gifs-)
+* [💡 Interesting Code Snippet](#interesting-code-snippet)
+* [🧪 Test Reports](#test-reports-junit)
+* [📜 License](#license)
+* [👤 Author](#author)
+* [📚 References](#references)
 
 ---
 
-## 🧠 Features
+## Features
 
 * ✅ Build-your-own salad workflow
 * 🥗 Pre-made signature salad menu
@@ -36,7 +36,7 @@ Includes:
 
 ---
 
-## ⚙️ How It Works (Console App)
+## How It Works (Console App)
 
 1. User selects Signature Salad **or** Custom Salad
 2. If Custom:
@@ -49,7 +49,7 @@ Includes:
 
 ---
 
-## 🌐 How It Works (Prince's Food Court Web App)
+## How It Works (Prince's Food Court Web App)
 
 1. Spring Boot serves a Thymeleaf-driven HTML menu
 2. Menu items displayed visually
@@ -59,14 +59,14 @@ Includes:
 
 ---
 
-## 🧩 Class Diagram Overview
+## Class Diagram Overview
 
 ![diagram](images/SaladsByPrinceDiagram.png)
 
 
 ---
 
-## 🛠️▶️ Installation/Run Instructions
+## Installation/Run Instructions
 
 ### Installation
 
@@ -106,7 +106,7 @@ http://localhost:8080
 
 ---
 
-## 🖼️ Screen Gifs 
+## Screen Gifs 
 
 Console:
 ![CLI](images/CLI.gif)
@@ -116,7 +116,7 @@ Web App:
 
 ---
 
-## 💡 Interesting Code Snippet
+## Interesting Code Snippet
 
 ```
 class OrderSystemTest {
@@ -235,13 +235,13 @@ Why it's interesting: This snippet shows how the backend of the app dynamically 
 
 ---
 
-## 🧪 Test Reports (JUnit)
+## Test Reports (JUnit)
 
 ![testreports](images/JUnitTestReport1.png)
 ![testreports](images/JUnitTestReport2.png)
 
 ---
-## 📜 License
+## License
 
 **MIT License**  
 This project is open-source and free to use under the terms of the MIT License.  
@@ -249,13 +249,13 @@ See the [LICENSE](#-LICENSE) file for details.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Prince Haywood**
 📍 Playa Vista, California
 👨‍💻 LinkedIn https://www.linkedin.com/in/princehaywood/
 
-## 📚 References
+## References
 
 Van Putten, M. (2025, November 8th). CLI input and JUnit testing guidance. [Example JUnit Test]. https://github.com/BrightBoost/learningjava/commit/8295b216d59c4bc62dcedf8eb8d6a0ccf76b152b Year Up United.
 
