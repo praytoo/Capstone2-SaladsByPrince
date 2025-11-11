@@ -75,11 +75,6 @@ Clone the repository:
 git clone https://github.com/praytoo/Capstone2-SaladsByPrince
 cd Capstone2-SaladsByPrince
 ```
-Build the project using Maven:
-```
-mvn clean install
-```
-Ensure Java 17+ is installed.
 
 ### Run
 
