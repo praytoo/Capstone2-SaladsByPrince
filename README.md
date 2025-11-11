@@ -146,7 +146,7 @@ Web Menu:
         return list;
     }
 ```
-Why it's interesting: This snippet shows how the backend of the app dynamically allows you to add a signature salad to your order. I didn't have to make a new class for Signature Salad that extended Salad by making signature salad static, so the backend of my app adds a signature salad with compiling ease.
+Why it's interesting: This snippet shows how the backend of the app dynamically allows you to add a signature salad to your order. I didn't have to make a new class for Signature Salad that extended Salad by making Signature Salad static, so the backend of my app adds a signature salad with compiling ease.
 
 
 ---
