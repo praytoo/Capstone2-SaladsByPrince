@@ -107,10 +107,10 @@ http://localhost:8080
 
 ## 🖼️Screen Gifs 
 
-Console Menu:
+Console:
 ![CLI](images/CLI.gif)
 
-Web Menu:
+Web App:
 ![WebApp](images/WebApp.gif)
 
 ---
