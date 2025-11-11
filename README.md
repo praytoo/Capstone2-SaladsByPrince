@@ -78,14 +78,6 @@ cd Capstone2-SaladsByPrince
 
 ### Run
 
-### Console App
-
-```
-cd SaladByPrinceConsole
-mvn compile
-mvn exec:java
-```
-
 ### Spring Boot Web App
 
 ```
