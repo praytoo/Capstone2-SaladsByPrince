@@ -245,7 +245,7 @@ Why it's interesting: This snippet shows how the backend of the app dynamically 
 
 **MIT License**  
 This project is open-source and free to use under the terms of the MIT License.  
-See the [LICENSE](#-LICENSE) file for details.
+See the [LICENSE](#LICENSE) file for details.
 
 ---
 
