@@ -16,7 +16,7 @@ Includes:
 * [How-It-Works-Web-App](#how-it-works-web-app)
 * [Class Diagram Overview](#class-diagram-overview)
 * [Installation/Run Instructions](#installation/run-instructions)
-* [Screenshots](#screenshots)
+* [Screen Gifs](#-screen-gifs-)
 * [Interesting Code Snippet](#-interesting-code-snippet)
 * [Test Reports](#test-reports)
 * [Author](#author)
@@ -105,7 +105,7 @@ http://localhost:8080
 
 ---
 
-## 🖼️ Screenshots 
+## 🖼️ Screen Gifs 
 
 Console Menu:
 ![CLI](images/CLI.gif)
