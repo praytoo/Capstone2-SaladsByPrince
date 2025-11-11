@@ -11,16 +11,16 @@ Includes:
 
 ## 📚 Table of Contents
 
-* [Features](#features)
-* [How-It-Works-Console-App](#how-it-works-console-app)
-* [How-It-Works-Web-App](#how-it-works-web-app)
-* [Class Diagram Overview](#class-diagram-overview)
-* [Installation/Run Instructions](#installation/run-instructions)
+* [Features](#-features)
+* [How-It-Works-Console-App](#-how-it-works-console-app)
+* [How-It-Works-Web-App](#-how-it-works-princes-food-court-web-app)
+* [Class Diagram Overview](#-class-diagram-overview)
+* [Installation/Run Instructions](#-installationrun-instructions)
 * [Screen Gifs](#-screen-gifs-)
 * [Interesting Code Snippet](#-interesting-code-snippet)
-* [Test Reports](#test-reports)
-* [Author](#author)
-* [References](#references)
+* [Test Reports](#-test-reports-junit)
+* [Author](#-author)
+* [References](#-references)
 
 ---
 
