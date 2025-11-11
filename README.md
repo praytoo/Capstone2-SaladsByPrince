@@ -80,6 +80,8 @@ mvn clean install
 ```
 Ensure Java 17+ is installed.
 
+### Run
+
 ### Console App
 
 ```
