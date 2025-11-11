@@ -12,14 +12,14 @@ Includes:
 ## 📚 Table of Contents
 
 * [Features](#-features)
-* [How-It-Works-Console-App](#-how-it-works-console-app)
+* [How-It-Works-Console-App](#how-it-works-console-app)
 * [How-It-Works-Web-App](#-how-it-works-princes-food-court-web-app)
 * [Class Diagram Overview](#-class-diagram-overview)
-* [Installation/Run Instructions](#-installationrun-instructions)
-* [Screen Gifs](#-screen-gifs-)
+* [Installation/Run Instructions](#installationrun-instructions)
+* [Screen Gifs](#screen-gifs-)
 * [Interesting Code Snippet](#-interesting-code-snippet)
 * [Test Reports](#-test-reports-junit)
-* [Author](#-author)
+* [Author](#author)
 * [References](#-references)
 
 ---
@@ -35,7 +35,7 @@ Includes:
 
 ---
 
-## ⚙️ How It Works (Console App)
+## ⚙️How It Works (Console App)
 
 1. User selects Signature Salad **or** Custom Salad
 2. If Custom:
@@ -65,7 +65,7 @@ Includes:
 
 ---
 
-## 🛠️▶️ Installation/Run Instructions
+## 🛠️▶️Installation/Run Instructions
 
 ### Installation
 
@@ -105,7 +105,7 @@ http://localhost:8080
 
 ---
 
-## 🖼️ Screen Gifs 
+## 🖼️Screen Gifs 
 
 Console Menu:
 ![CLI](images/CLI.gif)
@@ -158,7 +158,7 @@ Why it's interesting: This snippet shows how the backend of the app dynamically 
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻Author
 
 **Prince Haywood**
 📍 Playa Vista, California
