@@ -4,7 +4,7 @@ import com.pluralsight.fooditem.Drink;
 import com.pluralsight.fooditem.Salad;
 import com.pluralsight.fooditem.Side;
 import com.pluralsight.order.OrderItem;
-import com.pluralsight.order.OrderSide;
+import com.pluralsight.toppings.Dressing;
 import com.pluralsight.toppings.Topping;
 
 import java.io.BufferedWriter;
@@ -55,7 +55,7 @@ public class ReceiptWriter {
                             } else if (item instanceof Drink drink) {
                                 line = "DRINK," + drink.getSize() + "," + drink.getFlavor();
                             } else if (item instanceof Side side) {
-                                line = "SIDE," + side.getSize() + "," + side.getSide();
+                                line = "SIDE," + side.getSize() + "," + side.getSideType();
                             }
                             writer.write(line);
                             writer.newLine();
@@ -98,6 +98,11 @@ public class ReceiptWriter {
                         .map(Topping::getName)
                         .reduce((a, b) -> a + ", " + b)
                         .orElse("");
+                Optional<List<Dressing>> dressings = salad.getDressings();
+                String dressingName = dressings.stream()
+                        .map((List<Dressing> t) -> salad.getDressings(t))
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("");
                 Optional<List<Topping>> toppings2 = salad.getToppings2();
                 String toppingNames2 = toppings.stream()
                         .map(Topping::getName)
@@ -116,7 +121,7 @@ public class ReceiptWriter {
                         .append(drink.getFlavor())
                         .append(" - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
-            } else if (item instanceof OrderSide side) {
+            } else if (item instanceof Side side) {
                 double itemPrice = side.getCost();
                 sb.append(side.getSize()).append(" ")
                         .append(side.getSideType())

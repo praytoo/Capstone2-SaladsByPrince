@@ -2,6 +2,7 @@ package com.pluralsight.order;
 
 import com.pluralsight.controller.OrderSystem;
 import com.pluralsight.controller.ReceiptWriter;
+import com.pluralsight.fooditem.Side;
 import com.pluralsight.toppings.Size;
 
 import static com.pluralsight.controller.OrderSystem.scanner;
@@ -45,7 +46,7 @@ public class OrderMainSide {
             }
         }
         //add main side to current order
-        OrderSide side = new OrderSide(sideName, sideSize);
+        Side side = new Side(sideName, sideSize);
         OrderSystem.currentOrder.add(0, side);
 
         //ready to check out input

@@ -25,6 +25,11 @@ public class Salad implements OrderItem {
     private int extraDressing;
     private String quinoa;
     private int quinoaCount;
+    private List<Dressing> dressings;
+
+    public Optional<List<Dressing>> getDressings() {
+        return Optional.ofNullable(dressings);
+    }
 
     public Salad(GreenType green, Size size, String meatName, int extraMeat, String premiumName, int extraPremium, String regularName, int extraRegular, String dressingType, int extraDressing, String quinoa, int quinoaCount) {
         this.green = green;
@@ -63,11 +68,6 @@ public class Salad implements OrderItem {
     }
 
     public Salad(String regularName) {
-    }
-
-
-    public void setDressing(Dressing dressing) {
-        this.dressing = dressing;
     }
 
     public void setToppings(List<Topping> toppings) {
@@ -171,13 +171,9 @@ public class Salad implements OrderItem {
         return calculatePrice();
     }
 
-    //optional method
+    //optional method to test in JUnit
     public Optional<List<Topping>> getToppings2() {
         return Optional.ofNullable(toppings);
-    }
-
-    public void addTopping(Topping topping) {
-        toppings.add(topping);
     }
 
     //signature salad list

@@ -18,7 +18,7 @@ public class Drink implements OrderItem {
         return flavor;
     }
 
-    //optional method
+    //optional method for JUnit test
     public static Optional<Size> getSize2(Size size) {
         return Optional.ofNullable(size);
     }

@@ -6,49 +6,49 @@ import com.pluralsight.toppings.Size;
 import java.util.Optional;
 
 public class Side implements OrderItem {
-    private String side;
-    private double Price;
+    private String sideType;
     private Size size;
+    private double Price;
+    private String side;
 
-    @Override
-    public String toString() {
-        return size + " " + side;
-    }
-
-    public Side(String side, Size size) {
-        this.side = side;
+    public Side(String sideType, Size size) {
+        this.sideType = sideType;
         this.size = size;
-    }
-
-    public Side(String side) {
     }
 
     public Size getSize() {
         return size;
     }
 
-    public String getSide() {
-        return side;
-    }
-
     public double getPrice() {
         return Price;
     }
-    //optional method
+
+    public String getSideType() {
+
+        return sideType;
+    }
+
+    //optional method to assist JUnit testing
     public static Optional<Size> getSize2(Size size) {
         return Optional.ofNullable(size);
     }
 
-
     @Override
     public double getCost() {
-        return getSize2(size)
-                .map(s -> switch (s) {
-                    case SMALL -> 5.0;
-                    case MEDIUM -> 7.5;
-                    case LARGE -> 9.0;
-                })
-                .orElse(0.0);
+        return switch (size) {
+            case SMALL -> 5.0;
+            case MEDIUM -> 7.5;
+            case LARGE -> 9.0;
+        };
+    }
 
+    @Override
+    public String toString() {
+        return size + " " + sideType + " side";
     }
 }
+
+
+
+
