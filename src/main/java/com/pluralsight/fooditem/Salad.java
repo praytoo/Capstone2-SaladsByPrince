@@ -46,6 +46,7 @@ public class Salad implements OrderItem {
         this.quinoaCount = quinoaCount;
         this.toppings = new ArrayList<>();
         this.dressing = new Dressing(dressingType);
+        this.dressings = new ArrayList<>();
     }
 
     public Salad(Size size, GreenType green, List<Topping> toppings, Dressing dressing) {

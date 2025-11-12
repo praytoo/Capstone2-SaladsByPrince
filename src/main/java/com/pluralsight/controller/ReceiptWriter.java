@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static com.pluralsight.controller.OrderSystem.*;
 
@@ -47,7 +48,11 @@ public class ReceiptWriter {
                             String line = "";
                             if (item instanceof Salad salad) {
                                 line = "SALAD," + salad.getGreen() + "," + salad.getSize() + "," +
-                                        salad.getDressing() + "," +
+                                        salad.getDressings()
+                                        .map(list -> list.stream()
+                                                .map(Dressing::getName)
+                                                .collect(Collectors.joining(", ")))
+                                        .orElse("") + "," +
                                         salad.getToppings().stream()
                                                 .map(Topping::getName)
                                                 .reduce((a, b) -> a + "/" + b)
@@ -98,22 +103,20 @@ public class ReceiptWriter {
                         .map(Topping::getName)
                         .reduce((a, b) -> a + ", " + b)
                         .orElse("");
-                Optional<List<Dressing>> dressings = salad.getDressings();
-                String dressingName = dressings.stream()
-                        .map((List<Dressing> t) -> salad.getDressings(t))
-                        .reduce((a, b) -> a + ", " + b)
-                        .orElse("");
-                Optional<List<Topping>> toppings2 = salad.getToppings2();
-                String toppingNames2 = toppings.stream()
-                        .map(Topping::getName)
-                        .reduce((a, b) -> a + ", " + b)
+                String dressingName = salad.getDressings()
+                        .map(list -> list.stream()
+                                .map(Dressing::getName)
+                                .collect(Collectors.joining(", ")))
                         .orElse("");
                 sb.append(salad.getGreen());
-                if (!toppingNames.isEmpty()) {
-                    sb.append(" (").append(toppingNames).append(")")
-                            .append(" salad - Size: ").append(salad.getSize())
-                            .append(" - Price: $").append(itemPrice).append("\n");
+                if (!dressingName.isEmpty()) {
+                    sb.append(" with ").append(dressingName);
                 }
+                if (!toppingNames.isEmpty()) {
+                    sb.append(" (").append(toppingNames).append(")");
+                }
+                        sb.append(" salad - Size: ").append(salad.getSize())
+                        .append(" - Price: $").append(itemPrice).append("\n");
                 totalPrice += itemPrice;
             } else if (item instanceof Drink drink) {
                 double itemPrice = drink.getCost();

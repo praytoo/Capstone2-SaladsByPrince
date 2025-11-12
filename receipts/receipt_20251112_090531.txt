@@ -1,0 +1,2 @@
+SALAD,ARUGULA,SMALL,com.pluralsight.toppings.Dressing@439f5b3d,Quinoa/Chicken/Mozzarella/Croutons
+Total Price: $16.0
