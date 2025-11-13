@@ -1,0 +1,5 @@
+SALAD,SPINACH,SMALL,,Raisins/Quinoa/Prosciutto/Brie/Raisins
+DRINK,LARGE,Cherry Lemonade
+SIDE,SMALL,Sweet Potato
+SALAD,LETTUCE,SMALL,,Chicken/Croutons
+Total Price: $42.0

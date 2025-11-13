@@ -5,11 +5,14 @@ import com.pluralsight.toppings.Size;
 
 import java.util.Optional;
 
+//implements the OrderItem interface
 public class Side implements OrderItem {
     private String sideType;
     private Size size;
     private double Price;
     private String side;
+
+    //my constructors and getters
 
     public Side(String sideType, Size size) {
         this.sideType = sideType;
@@ -25,7 +28,6 @@ public class Side implements OrderItem {
     }
 
     public String getSideType() {
-
         return sideType;
     }
 
@@ -34,6 +36,7 @@ public class Side implements OrderItem {
         return Optional.ofNullable(size);
     }
 
+    //OrderItem overridden getCost() method
     @Override
     public double getCost() {
         return switch (size) {
@@ -43,6 +46,7 @@ public class Side implements OrderItem {
         };
     }
 
+    //overriding Object's toString() method
     @Override
     public String toString() {
         return size + " " + sideType + " side";

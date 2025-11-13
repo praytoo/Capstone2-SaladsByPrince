@@ -5,9 +5,12 @@ import com.pluralsight.toppings.Size;
 
 import java.util.Optional;
 
+//implements the OrderItem interface
 public class Drink implements OrderItem {
     private String flavor;
     private Size size;
+
+    //my constructors and getters
 
     public Drink(String flavor, Size size) {
         this.flavor = flavor;
@@ -18,7 +21,7 @@ public class Drink implements OrderItem {
         return flavor;
     }
 
-    //optional method for JUnit test
+    //Optional<> method for JUnit test (which help you handle null scenarios)
     public static Optional<Size> getSize2(Size size) {
         return Optional.ofNullable(size);
     }
@@ -27,6 +30,7 @@ public class Drink implements OrderItem {
         return size;
     }
 
+    //OrderItem overridden getCost() method
     @Override
     public double getCost() {
         return getSize2(size)

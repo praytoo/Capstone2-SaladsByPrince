@@ -9,7 +9,8 @@ import static com.pluralsight.controller.OrderSystem.scanner;
 import static java.lang.System.out;
 
 public class OrderDrink {
-    //add drink method
+    //add drink method (boolean to make screen choice in while statement)
+    //using switch cases to make drink choice decisions
     public static boolean addDrink() {
         //select size of drink
         out.println("What size would you like?: " +
@@ -49,7 +50,7 @@ public class OrderDrink {
         Drink drink2 = new Drink(drinkFlavor, drinkSize);
         OrderSystem.currentOrder.add(0, drink2);
 
-        //check out input
+        //check out input caught in a while statement
         while (true) {
             out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();

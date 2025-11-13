@@ -1,0 +1,2 @@
+SALAD,SPINACH,SMALL,,Tuna/Avocado
+Total Price: $12.5

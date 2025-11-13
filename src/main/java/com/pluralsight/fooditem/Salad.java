@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//implements the OrderItem interface
 public class Salad implements OrderItem {
     private GreenType green;
     private Size size;
@@ -27,9 +28,12 @@ public class Salad implements OrderItem {
     private int quinoaCount;
     private List<Dressing> dressings;
 
+    //Optional<> method for JUnit test (which help you handle null scenarios)
     public Optional<List<Dressing>> getDressings() {
         return Optional.ofNullable(dressings);
     }
+
+    //my constructors and getters
 
     public Salad(GreenType green, Size size, String meatName, int extraMeat, String premiumName, int extraPremium, String regularName, int extraRegular, String dressingType, int extraDressing, String quinoa, int quinoaCount) {
         this.green = green;
@@ -91,7 +95,7 @@ public class Salad implements OrderItem {
         return dressing;
     }
 
-    //calculate price by salad contents
+    //calculate price by salad contents and size
     public double calculatePrice() {
         double price = 0;
 
@@ -167,17 +171,18 @@ public class Salad implements OrderItem {
         return price;
     }
 
+    //OrderItem overridden getCost() method
     @Override
     public double getCost() {
         return calculatePrice();
     }
 
-    //optional method to test in JUnit
+    //Optional<> method for JUnit test (which help you handle null scenarios)
     public Optional<List<Topping>> getToppings2() {
         return Optional.ofNullable(toppings);
     }
 
-    //signature salad list
+    //signature salad list (made static so no need for a separate class)
     public static List<Salad> getSignatureSalads() {
         List<Salad> list = new ArrayList<>();
 
@@ -205,6 +210,7 @@ public class Salad implements OrderItem {
         return list;
     }
 
+    //overriding Object's toString() method
     @Override
     public String toString() {
         return size + " " + green + " salad with " + toppings.get(0).getName() + ", " + toppings.get(toppings.size() - 1).getName() + " and " + dressing.getName();

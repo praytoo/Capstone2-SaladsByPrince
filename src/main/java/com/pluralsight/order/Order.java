@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    //property / attribute
     private static List<OrderItem> items = new ArrayList<>();
 
+    //method in charge of adding an item to an order
     public void addItem(OrderItem item) {
         items.add(item);
     }
+
     //calculate total by item
     public static double calculateTotal() {
         double total = 0;

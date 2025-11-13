@@ -29,6 +29,8 @@ public class ReceiptWriter {
         if (currentOrder.isEmpty()) {
             System.out.println("Must add a salad, side, or drink!");
         } else {
+            //if not $0.0 receipt is printed after confirming order using a buffered writer
+            //using an if statement a try/catch block and a nested try/catch block and if statement
             String receiptOutput = generateReceiptText();
             System.out.println(receiptOutput);
 
@@ -85,10 +87,11 @@ public class ReceiptWriter {
                 return homeScreen();
             }
         }
+        //loops back to homescreen
         return false;
     }
 
-    //receipt text generator
+    //receipt text generator using string builder and (nested) if statements
     public static String generateReceiptText() {
         StringBuilder sb = new StringBuilder();
         double totalPrice = 0;

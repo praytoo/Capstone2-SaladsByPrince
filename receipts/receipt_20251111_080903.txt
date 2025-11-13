@@ -1,5 +1,0 @@
-SALAD,ARUGULA,SMALL,com.pluralsight.toppings.Dressing@377dca04,Beef/Raisins
-
-DRINK,MEDIUM,Strawberry Lemonade
-SALAD,ARUGULA,MEDIUM,com.pluralsight.toppings.Dressing@6267c3bb,Salmon/Hard Boiled Egg/Quinoa/Salmon/Brie/Hard Boiled Egg
-Total Price: $54.0

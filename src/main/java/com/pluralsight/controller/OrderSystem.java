@@ -13,7 +13,7 @@ public class OrderSystem {
     public static List<OrderItem> currentOrder = new ArrayList<>();
 
 
-    //to loop back to home
+    //to loop back to home using a while loop
     public static void main(String[] args) {
         boolean endProgram = false;
         while (!endProgram) {
@@ -42,7 +42,7 @@ public class OrderSystem {
         return false;
     }
 
-    //to solve for number choice
+    //method to handle number choice
     public static int getNumberChoice(String options) {
         out.println(options);
         int choice = scanner.nextInt();
@@ -50,7 +50,7 @@ public class OrderSystem {
         return choice;
     }
 
-    //order screen
+    //order screen switch case
     public static boolean orderScreen() {
         String options = """
                 Would you like to...

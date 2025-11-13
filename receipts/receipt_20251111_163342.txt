@@ -1,5 +1,0 @@
-SALAD,SPINACH,MEDIUM,com.pluralsight.toppings.Dressing@377dca04,Mozzarella/Quinoa/Salmon/Mozzarella/Croutons
-DRINK,LARGE,Cherry Lemonade
-
-SALAD,LETTUCE,SMALL,com.pluralsight.toppings.Dressing@6267c3bb,Chicken/Croutons
-Total Price: $50.5

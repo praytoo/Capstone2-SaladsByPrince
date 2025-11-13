@@ -11,7 +11,9 @@ import static com.pluralsight.controller.OrderSystem.scanner;
 import static java.lang.System.out;
 
 public class OrderSignatureSalad {
-    //add signature salad method
+    //add main signature salad method (boolean to make screen choice in while statement)
+    //using a for loop to select signature salad
+    //using switch cases to make signature salad modification decisions
     public static boolean addSignatureSalad() {
         List<Salad> signatureSalads = Salad.getSignatureSalads();
 
@@ -67,6 +69,7 @@ public class OrderSignatureSalad {
             }
 
             // ask user if they want to remove any toppings
+            //using (nested) if statements and while statements to do so
             out.println("Do you want to remove any toppings? (yes/no)");
             String removeChoice = scanner.nextLine().trim();
 
@@ -87,7 +90,7 @@ public class OrderSignatureSalad {
             //add signature salad to current order
             OrderSystem.currentOrder.add(0, selectedSalad);
 
-            //ready to check out input
+            //ready to check out input using a while statement
             while (true) {
                 out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
                 String checkout = scanner.nextLine();

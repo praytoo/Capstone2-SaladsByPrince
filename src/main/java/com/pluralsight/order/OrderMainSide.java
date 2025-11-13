@@ -9,7 +9,8 @@ import static com.pluralsight.controller.OrderSystem.scanner;
 import static java.lang.System.out;
 
 public class OrderMainSide {
-    //add main side method
+    //add main side method (boolean to make screen choice in while statement)
+    //using switch cases to make side choice decisions
     public static boolean addMainSide() {
         //select your main side choice
         out.println("What do you want as your main side?: " +
@@ -49,7 +50,7 @@ public class OrderMainSide {
         Side side = new Side(sideName, sideSize);
         OrderSystem.currentOrder.add(0, side);
 
-        //ready to check out input
+        //ready to check out input using a while statement
         while (true) {
             out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine().trim().toLowerCase();

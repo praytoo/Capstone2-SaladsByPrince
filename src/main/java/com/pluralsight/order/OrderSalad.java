@@ -12,7 +12,8 @@ import static com.pluralsight.controller.OrderSystem.scanner;
 import static java.lang.System.out;
 
 public class OrderSalad {
-    //add salad input
+    //add main salad method (boolean to make screen choice in while statement)
+    //using switch cases to make salad choice decisions
     public static boolean addSalad() {
         // select greens
         out.println("Select your green type: 1) Arugula, 2) Spinach, or 3) Lettuce");
@@ -197,7 +198,7 @@ public class OrderSalad {
         int quinoaCount = 0;
         String quinoa;
         while (true) {
-            out.println("Add quinoa? yes/no");
+            out.println("Add quinoa specialization? yes/no");
             quinoa = scanner.nextLine();
             if (quinoa.equalsIgnoreCase("yes")) {
                 quinoaCount++;
@@ -216,6 +217,7 @@ public class OrderSalad {
         for (int i = 0; i < extraRegular; i++) toppings.add(new RegularTopping(regularName));
         for (int i = 0; i < extraDressing; i++) dressing.add(new com.pluralsight.toppings.Dressing(dressingType));
         for (int i = 0; i < quinoaCount; i++) toppings.add(new QuinoaTopping("Quinoa"));
+        //adding toppings to order list
         for (Topping t : meatToppings){
             toppings.add(t);
         }
@@ -232,7 +234,7 @@ public class OrderSalad {
         Salad salad = new Salad(saladSize, green, toppings, dressing2, extraMeat, extraPremium, extraRegular, extraDressing, quinoaCount);
         OrderSystem.currentOrder.add(0, salad);
 
-        //checkout input
+        //checkout input caught in a while statement
         while (true) {
             out.println("Are you ready to check out?: yes: checkout, no: add more items, cancel: exit to homescreen");
             String checkout = scanner.nextLine();
