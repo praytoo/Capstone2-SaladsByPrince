@@ -1,0 +1,4 @@
+SIDE,MEDIUM,Sweet Potato
+DRINK,MEDIUM,Rose Lemonade
+SALAD,ARUGULA,LARGE,,Prosciutto/Brie/Avocado/Quinoa/Prosciutto/Brie/Avocado
+Total Price: $53.0
