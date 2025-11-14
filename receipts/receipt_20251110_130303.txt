@@ -1,2 +1,0 @@
-DRINK,MEDIUM,Strawberry Lemonade
-Total Price: $6.5
