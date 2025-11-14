@@ -1,0 +1,5 @@
+SALAD,LETTUCE,SMALL,,Prosciutto/Avocado/Quinoa/Prosciutto/Brie/Avocado
+DRINK,LARGE,Cherry Lemonade
+SIDE,SMALL,Kimchi
+SALAD,SPINACH,SMALL,,Tuna/Avocado
+Total Price: $45.0

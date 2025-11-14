@@ -84,7 +84,7 @@ class OrderSystemTest {
         var out = new PrintStream(output);
         boolean input2 = input.equals("no");
         //act
-        boolean result = ReceiptWriter.checkout(scanner, out, "no");
+        boolean result = ReceiptWriter.checkout(scanner, out, String.valueOf(input2));
         //assert
         assertEquals(input2, result);
         //String text = output.toString(StandardCharsets.UTF_8);
